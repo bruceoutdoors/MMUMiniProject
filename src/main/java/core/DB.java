@@ -1,3 +1,5 @@
+package core;
+
 import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -10,7 +12,7 @@ import javax.persistence.Query;
  */
 public class DB {
 
-    private static final String PERSISTENCE_UNIT_NAME = "MMUMiniProjectWebPU";
+    private static final String PERSISTENCE_UNIT_NAME = "MMUMiniProjectMavenU";
     private static DB instance = null;
     
     private final EntityManager em;
