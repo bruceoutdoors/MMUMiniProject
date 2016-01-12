@@ -9,7 +9,7 @@ With PhpMyAdmin, create a database called **mmuminiproject** and the site should
 
 ## Important Dev Notes
 
-* Project relies on Struts2 (https://struts.apache.org/) to utilize MVC. Controller (called actions in Struts2) and model files are located in source packages under com.mmuminiproject. View files (*.jsp) are under *Web Pages*, in **WEB-INF/content**.
+* Project relies on Struts2 (https://struts.apache.org/) and Struts2 Convention Plugin to utilize MVC. Controller (called actions in Struts2) and model files are located in source packages under com.mmuminiproject. View files (*.jsp) are under _Web Pages_, in **WEB-INF/content**.
 * Migrations (a series of SQL files) are handled by FlywayDb (http://flywaydb.org/), and are located under source package **src/main/resources/db/migrations**. In Netbeans, you find this under "Other Sources". Each time a new migration is added, restart Tomcat and your database will be migrated.
 * Dependencies are handled by Maven; to add new libraries, look for them in http://mvnrepository.com/ and add the dependency into **pom.xml**. 
 
@@ -20,4 +20,4 @@ With PhpMyAdmin, create a database called **mmuminiproject** and the site should
 ## Note-So-Important Dev Notes 
 
 * Perhaps you wonder why actions need to be located under com.mmuminiproject package. The *action* package was initially a base package, but somehow it affected the template mapping (action map to a jsp file) when involving subdirectories (mywebsite/subdir/subdir/action).
-* Automatic migration is handled by a ServletContextListener *MigrateDb* inside listener package.
+* Automatic migration is handled by a ServletContextListener _MigrateDb_ inside listener package.
