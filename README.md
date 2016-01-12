@@ -3,9 +3,9 @@ MMU Mini Project Website
 
 ## Setup
 
-You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with XAMPP. When connecting Tomcat with Netbeans, just point Netbeans to the `tomcat` folder in your XAMPP installation. Be sure to turn off Tomcat when doing this as Netbeans writes a username and password to `tomcat/conf/tomcat-users.xml`.
+You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with XAMPP. When connecting Tomcat with Netbeans, just point Netbeans to the `tomcat` folder in your XAMPP installation. Be sure to turn off Tomcat (you can do this from XAMPP control panel) when doing this as Netbeans writes a username and password to `tomcat/conf/tomcat-users.xml`.
 
-Prior to launching the website in your localhost, you only need to start MySQL server from XAMPP control panel. Netbeans will launch Tomcat for you. A database called **mmuminiproject** will be created (if it doesn't exist) and be populated with tables and initial data before running.
+**Prior to launching the website in your localhost, you need to start MySQL server from XAMPP control panel.** Netbeans will launch Tomcat for you. A database called `mmuminiproject` will be created (if it doesn't exist) and be populated with tables and initial data before running.
 
 ## Important Dev Notes
 
@@ -22,11 +22,11 @@ Prior to launching the website in your localhost, you only need to start MySQL s
 
 * Perhaps you wonder why actions need to be located under com.mmuminiproject package. The `action` package was initially a base package, but somehow it affected the template mapping (action map to a jsp file) when involving subdirectories (mywebsite/subdir/subdir/action).
 
-* Automatic migration is handled by a ServletContextListener `MigrateDb` inside listener package. If you ever make any changes to this file, you need to turn off and on Tomcat after comment out and uncomment code block below located in `WEB-INF/web.xml`:
+* Automatic migration is handled by a ServletContextListener `core.listener.MigrateDb`. If you ever make any changes to this file, you need to turn off and on Tomcat after comment out and uncomment code block below located in `WEB-INF/web.xml`:
 ```
 <listener>
     <listener-class>listener.MigrateDb</listener-class>
 </listener>
 ```
 
-* If you decide to make changes to database name, user or password, you need to edit listener.MigrateDb and persistence.xml (located in `src/main/resources/persistence.xml` under "Other Sources").
+* If you decide to make changes to database name, user or password, you need to edit `core.listener.MigrateDb` and `persistence.xml` (located in `src/main/resources/persistence.xml` under "Other Sources").
