@@ -22,11 +22,6 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 
 * Perhaps you wonder why actions need to be located under com.mmuminiproject package. The `action` package was initially a base package, but somehow it affected the template mapping (action map to a jsp file) when involving subdirectories (mywebsite/subdir/subdir/action).
 
-* Automatic migration is handled by a ServletContextListener `core.listener.MigrateDb`. If you ever make any changes to this file, you need to turn off and on Tomcat after comment out and uncomment code block below located in `WEB-INF/web.xml`:
-```
-<listener>
-    <listener-class>listener.MigrateDb</listener-class>
-</listener>
-```
+* Automatic creation of the database, as well as auto-migrating is handled by a ServletContextListener `core.listener.MigrateDb`.
 
 * If you decide to make changes to database name, user or password, you need to edit `core.listener.MigrateDb` and `persistence.xml` (located in `src/main/resources/persistence.xml` under "Other Sources").
