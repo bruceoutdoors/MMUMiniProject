@@ -1,5 +1,7 @@
 package core.listener;
 
+import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,6 +26,7 @@ public class MigrateDb implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent arg0) {
         try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             DriverManager.getConnection(DB_URL, DB_USER, DB_PWD)
                     .createStatement()
                     .executeUpdate("CREATE DATABASE IF NOT EXISTS " + DB_NAME);
