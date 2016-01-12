@@ -11,26 +11,11 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author bruceoutdoors
  */
 public class HomeAction extends ActionSupport {
-    private String para;
+    public String para;
     
     @Override
     public String execute() {
-        setPara("HELLO MOTHERFUCKERS");
+        para = "HELLO MR BLUE";
         return SUCCESS;
     }
-
-    /**
-     * @return the param
-     */
-    public String getPara() {
-        return para;
-    }
-
-    /**
-     * @param param the param to set
-     */
-    public void setPara(String param) {
-        this.para = param;
-    }
-    
 }
