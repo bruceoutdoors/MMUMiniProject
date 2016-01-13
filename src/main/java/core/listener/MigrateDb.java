@@ -2,8 +2,6 @@ package core.listener;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.flywaydb.core.Flyway;
@@ -23,14 +21,12 @@ public class MigrateDb implements ServletContextListener {
 //Run this before web application is started
     @Override
     public void contextInitialized(ServletContextEvent arg0) {
-        try {
+        try { // creates database if doesn't exist. Doesn't affect production.
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             DriverManager.getConnection(DB_URL, DB_USER, DB_PWD)
                     .createStatement()
                     .executeUpdate("CREATE DATABASE IF NOT EXISTS " + DB_NAME);
-        } catch (SQLException ex) {
-            Logger.getLogger("SQL EXCEPTION: " + MigrateDb.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (SQLException ex) {}
 
         Flyway flyway = new Flyway();
         flyway.setDataSource(DB_URL + DB_NAME, DB_USER, DB_PWD);
