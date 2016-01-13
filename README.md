@@ -24,4 +24,14 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 
 * Automatic creation of the database, as well as auto-migrating is handled by a ServletContextListener `core.listener.MigrateDb`.
 
-* If you decide to make changes to database name, user or password, you need to edit `core.listener.MigrateDb` and `persistence.xml` (located in `src/main/resources/persistence.xml` under "Other Sources").
+* If you decide to make changes to database name, user or password, you need to edit `core.listener.MigrateDb` and `persistence.xml` (located in `src/main/resources/persistence.xml` under "Other Sources"). This will be important in deployment, covered in the next section.
+
+## Deploy to OpenShift
+
+1. Add a new application. Choose **JBoss Application Server 7**. Set a URL that you want, and leave the source code blank so that OpenShift creates a git repo for you. 
+2. Add **MySQL** catridge. Record the database name, username and password. That database connection URL you see upon creating the catridge is not going to work verbatim.
+3. Add **PhpMyAdmin** catridge. Go to PhpMyAdmin. At the top you should see "Server: ". The bunch of numbers (ip address and port number) after that is your connection string. Your connection URL (`DB_URL`) should look something like `jdbc:mysql://127.4.52.2:3306/`.
+3. `git clone` the source code via the SSH URL they gave.
+4. Copy paste this maven project (source project) to that directory (deployment project), excluding the target and .git folder. 
+5. Modify **MigrateDb.java** (`src/main/java/core/listener/MigrateDb.java`) and **persistence.xml** (`src/main/resources/persistence.xml`) with the database name, username, password, and connection string that you retrieved earlier.
+6. Now you will be able to git push your application to OpenShift. You should stash a copy of these 2 files along with their directory structure for you to conveniently copy paste back after copy pasting your source project to your deployment project.
