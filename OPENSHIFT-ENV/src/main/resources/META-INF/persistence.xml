@@ -15,12 +15,9 @@
     <class>com.mmuminiproject.model.Project</class>
     <class>com.mmuminiproject.model.Student</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
     <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mmuminiproject"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
     </properties>
   </persistence-unit>
 </persistence>

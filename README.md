@@ -11,7 +11,7 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 
 * Project relies on Struts2 (https://struts.apache.org/) and Struts2 Convention Plugin to utilize MVC. Controller (called actions in Struts2) and model files are located in source packages under com.mmuminiproject. View files (*.jsp) are under _Web Pages_, in `WEB-INF/content`.
 * Migrations (a series of SQL files) are handled by FlywayDb (http://flywaydb.org/), and are located under source package `src/main/resources/db/migrations`. In Netbeans, you find this under "Other Sources". Each time a new migration is added, restart Tomcat and your database will be migrated.
-* ORM (Object Relational Mapping) is handled by JPA (Java Persistence API), implemented by EclipseLink.
+* ORM (Object Relational Mapping) is handled by JPA (Java Persistence API), implemented by Hibernate.
 * Dependencies are handled by Maven; to add new libraries, look for them in http://mvnrepository.com/ and add the dependency into `pom.xml`. 
 
 ## Tips
@@ -29,9 +29,10 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 ## Deploy to OpenShift
 
 1. Add a new application. Choose **JBoss Application Server 7**. Set a URL that you want, and leave the source code blank so that OpenShift creates a git repo for you. 
-2. Add **MySQL** catridge. Record the database name, username and password. That database connection URL you see upon creating the catridge is not going to work verbatim.
-3. Add **PhpMyAdmin** catridge. Go to PhpMyAdmin. At the top you should see "Server: ". The bunch of numbers (ip address and port number) after that is your connection string. Your connection URL (`DB_URL`) should look something like `jdbc:mysql://127.4.52.2:3306/`.
-3. `git clone` the source code via the SSH URL they gave.
-4. Copy paste this maven project (source project) to that directory (deployment project), excluding the target and .git folder. 
-5. Modify **MigrateDb.java** (`src/main/java/core/listener/MigrateDb.java`) and **persistence.xml** (`src/main/resources/persistence.xml`) with the database name, username, password, and connection string that you retrieved earlier.
-6. Now you will be able to git push your application to OpenShift. You should stash a copy of these 2 files along with their directory structure for you to conveniently copy paste back after copy pasting your source project to your deployment project.
+2. Add **MySQL** catridge.
+3. (optional) Add **PhpMyAdmin** catridge. This will allow you to see and modify the contents of the database.
+4. git clone the source code via the SSH URL they gave.
+5. Copy paste this maven project (source project) to that directory (deployment project), excluding the target and .git folder. 
+6. Remove the template files that come OpenShift in `\src\main\webapp`: images, snoop.jsp, and index.html. 
+7. Copy the contents of the `OPENSHIFT-ENV` folder into the deployment project. Do this each time you copy over from your source project.
+8. Now your project is ready to be pushed to the cloud!
