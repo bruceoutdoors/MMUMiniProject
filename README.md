@@ -21,10 +21,9 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 ## Note-So-Important Dev Notes 
 
 * Perhaps you wonder why actions need to be located under com.mmuminiproject package. The `action` package was initially a base package, but somehow it affected the template mapping (action map to a jsp file) when involving subdirectories (mywebsite/subdir/subdir/action).
-
 * Automatic creation of the database, as well as auto-migrating is handled by a ServletContextListener `core.listener.MigrateDb`.
-
-* If you decide to make changes to database name, user or password, you need to edit `core.listener.MigrateDb` and `persistence.xml` (located in `src/main/resources/persistence.xml` under "Other Sources"). This will be important in deployment, covered in the next section.
+* (Only for localhost) If you decide to make changes to database name, user or password, you need to edit `core.listener.MigrateDb` and `persistence.xml` (located in `src/main/resources/persistence.xml` under "Other Sources"). 
+* The `OPENSHIFT-ENV` folder contains a modified version of `MigrateDb.java` and `persistence.xml` that uses OpenShift's environment variables to access database settings.
 
 ## Deploy to OpenShift
 
@@ -33,6 +32,6 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 3. (optional) Add **PhpMyAdmin** catridge. This will allow you to see and modify the contents of the database.
 4. git clone the source code via the SSH URL they gave.
 5. Copy paste this maven project (source project) to that directory (deployment project), excluding the target and .git folder. 
-6. Remove the template files that come OpenShift in `\src\main\webapp`: images, snoop.jsp, and index.html. 
+6. Remove the template files that come OpenShift in `/src/main/webapp`: images/jbosscorp_logo.png, snoop.jsp, and index.html. 
 7. Copy the contents of the `OPENSHIFT-ENV` folder into the deployment project. Do this each time you copy over from your source project.
 8. Now your project is ready to be pushed to the cloud!
