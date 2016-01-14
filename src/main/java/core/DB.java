@@ -45,9 +45,16 @@ public class DB {
     }
 
     public void execTransaction(Transaction t) throws PersistenceException {
-        em.getTransaction().begin();
-        t.execute();
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            t.execute();
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new PersistenceException(ex);
+        }
     }
     
     public void persist(final Object entity) throws PersistenceException {
