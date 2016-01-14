@@ -6,13 +6,10 @@ package core;
  * and open the template in the editor.
  */
 
-
-import javax.persistence.PersistenceException;
-
 /**
  *
  * @author bruceoutdoors
  */
 public interface Transaction {
-    public void execute() throws PersistenceException;
+    public void execute() throws Exception;
 }

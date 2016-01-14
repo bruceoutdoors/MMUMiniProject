@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0">
-  <persistence-unit name="MMUMiniProjectMavenU" transaction-type="RESOURCE_LOCAL">
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="Localhost" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>app.model.Lecturer</class>
-    <class>app.model.Role</class>
-    <class>app.model.Student</class>
-    <class>app.model.Project</class>
-    <class>app.model.Faculty</class>
-    <class>app.model.Specialization</class>
-    <class>app.model.Admin</class>
-    <class>app.model.Comment</class>
-    <class>app.model.User</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+      <property name="hibernate.archive.autodetection" value="class, hbm"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mmuminiproject"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
+  </persistence-unit>
+  
+  
+  <persistence-unit name="OpenShift" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="hibernate.archive.autodetection" value="class, hbm"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
     </properties>
   </persistence-unit>
 </persistence>

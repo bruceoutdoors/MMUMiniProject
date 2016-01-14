@@ -5,11 +5,17 @@
  */
 package app.action.inside;
 
+import app.model.Role;
 import com.opensymphony.xwork2.ActionSupport;
+import core.DB;
 
 public class GooberAction extends ActionSupport {
     @Override
-    public String execute() {
+    public String execute() throws Exception {
+        Role r = new Role();
+        r.setRoleId(5);
+        r.setRoleName("Goober Daddy");
+        DB.getInstance().persist(r);
         return SUCCESS;
     }
 }

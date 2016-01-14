@@ -15,7 +15,7 @@ public class HomeAction extends ActionSupport {
     
     @Override
     public String execute() {
-        para = "HELLO MR BLUE";
+        para = (System.getenv("OPENSHIFT_APP_NAME") == null ? "Localhost" : "Openshift");
         return SUCCESS;
     }
 }

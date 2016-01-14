@@ -12,12 +12,19 @@ import javax.persistence.Query;
  */
 public class DB {
 
-    private static final String PERSISTENCE_UNIT_NAME = "MMUMiniProjectMavenU";
+    private static String PERSISTENCE_UNIT_NAME;
     private static DB instance = null;
-    
+
     private final EntityManager em;
-    
+
     private DB() throws SQLException {
+        // Test whether we are in OpenShift or Localhost
+        if (System.getenv("OPENSHIFT_APP_NAME") == null) {
+            PERSISTENCE_UNIT_NAME = "Localhost";
+        } else {
+            PERSISTENCE_UNIT_NAME = "OpenShift";
+        }
+
         em = Persistence
                 .createEntityManagerFactory(PERSISTENCE_UNIT_NAME)
                 .createEntityManager();
@@ -44,32 +51,32 @@ public class DB {
         return em.createNamedQuery(q);
     }
 
-    public void execTransaction(Transaction t) throws PersistenceException {
+    public void execTransaction(Transaction t) throws Exception {
         try {
             em.getTransaction().begin();
             t.execute();
             em.getTransaction().commit();
-        } catch (PersistenceException ex) {
+        } catch (Exception ex) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            throw new PersistenceException(ex);
+            throw new Exception(ex);
         }
     }
     
-    public void persist(final Object entity) throws PersistenceException {
+    public void persist(final Object entity) throws Exception {
         execTransaction(new Transaction() {
             @Override
-            public void execute() throws PersistenceException {
+            public void execute() throws Exception {
                 em.persist(entity);
             }
         });
     }
-    
-    public void remove(final Object entity) throws PersistenceException {
+
+    public void remove(final Object entity) throws Exception {
         execTransaction(new Transaction() {
             @Override
-            public void execute() throws PersistenceException {
+            public void execute() throws Exception {
                 em.remove(entity);
             }
         });
