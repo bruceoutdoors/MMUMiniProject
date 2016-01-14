@@ -9,10 +9,12 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 
 ## Important Dev Notes
 
-* Project relies on Struts2 (https://struts.apache.org/) and Struts2 Convention Plugin to utilize MVC. Controller (called actions in Struts2) and model files are located in source packages under com.mmuminiproject. View files (*.jsp) are under _Web Pages_, in `WEB-INF/content`.
+* Project relies on Struts2 (https://struts.apache.org/) and Struts2 Convention Plugin to utilize MVC. Controller (called actions in Struts2) and model files are located in source packages under the `app` package. View files (*.jsp) are under _Web Pages_, in `WEB-INF/content`.
 * Migrations (a series of SQL files) are handled by FlywayDb (http://flywaydb.org/), and are located under source package `src/main/resources/db/migrations`. In Netbeans, you find this under "Other Sources". Each time a new migration is added, restart Tomcat and your database will be migrated.
 * ORM (Object Relational Mapping) is handled by JPA (Java Persistence API), implemented by Hibernate.
 * Dependencies are handled by Maven; to add new libraries, look for them in http://mvnrepository.com/ and add the dependency into `pom.xml`. 
+* **Important:** If entities/models are added/remove, Netbeans will add them to `persistence.xml` automatically, but you will need to update the `persistence.xml` in the desployment version inside `OPENSHIFT-ENV` as well. Modify only the `<class/>` nodes, and don't touch anything else. 
+* If `persistence.xml` or `web.xml` (or the MigrateDb Listener set in `web.xml`) is not set properly, OpenShift doesn't give much indication aside a `Failed deployments: ./ROOT.war` error. 
 
 ## Tips
 
@@ -20,7 +22,6 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 
 ## Note-So-Important Dev Notes 
 
-* Perhaps you wonder why actions need to be located under com.mmuminiproject package. The `action` package was initially a base package, but somehow it affected the template mapping (action map to a jsp file) when involving subdirectories (mywebsite/subdir/subdir/action).
 * Automatic creation of the database, as well as auto-migrating is handled by a ServletContextListener `core.listener.MigrateDb`.
 * (Only for localhost) If you decide to make changes to database name, user or password, you need to edit `core.listener.MigrateDb` and `persistence.xml` (located in `src/main/resources/persistence.xml` under "Other Sources"). 
 * The `OPENSHIFT-ENV` folder contains a modified version of `MigrateDb.java` and `persistence.xml` that uses OpenShift's environment variables to access database settings.
@@ -31,7 +32,6 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 2. Add **MySQL** catridge.
 3. (optional) Add **PhpMyAdmin** catridge. This will allow you to see and modify the contents of the database.
 4. git clone the source code via the SSH URL they gave.
-5. Copy paste this maven project (source project) to that directory (deployment project), excluding the target and .git folder. 
-6. Remove the template files that come OpenShift in `/src/main/webapp`: images/jbosscorp_logo.png, snoop.jsp, and index.html. 
-7. Copy the contents of the `OPENSHIFT-ENV` folder into the deployment project. Do this each time you copy over from your source project.
-8. Now your project is ready to be pushed to the cloud!
+5. Copy paste this maven project (source project) to that directory (deployment project), excluding the target and .git folder.  
+6. Copy the contents of the `OPENSHIFT-ENV` folder into the deployment project. Do this each time you copy over from your source project.
+7. Now your project is ready to be pushed to the cloud!

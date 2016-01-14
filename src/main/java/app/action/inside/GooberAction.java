@@ -3,19 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mmuminiproject.action;
+package app.action.inside;
 
 import com.opensymphony.xwork2.ActionSupport;
-/**
- *
- * @author bruceoutdoors
- */
-public class HomeAction extends ActionSupport {
-    public String para;
-    
+
+public class GooberAction extends ActionSupport {
     @Override
     public String execute() {
-        para = "HELLO MR BLUE";
         return SUCCESS;
     }
 }

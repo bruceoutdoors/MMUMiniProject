@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mmuminiproject.model;
+package app.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,48 +26,47 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "faculty")
+@Table(name = "specialization")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Faculty.findAll", query = "SELECT f FROM Faculty f"),
-    @NamedQuery(name = "Faculty.findByFacId", query = "SELECT f FROM Faculty f WHERE f.facId = :facId"),
-    @NamedQuery(name = "Faculty.findByFacName", query = "SELECT f FROM Faculty f WHERE f.facName = :facName")})
-public class Faculty implements Serializable {
+    @NamedQuery(name = "Specialization.findAll", query = "SELECT s FROM Specialization s"),
+    @NamedQuery(name = "Specialization.findBySpecId", query = "SELECT s FROM Specialization s WHERE s.specId = :specId"),
+    @NamedQuery(name = "Specialization.findBySpecName", query = "SELECT s FROM Specialization s WHERE s.specName = :specName")})
+public class Specialization implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "fac_id")
-    private String facId;
-    @Size(max = 40)
-    @Column(name = "fac_name")
-    private String facName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fACULTYfacid")
+    @Column(name = "spec_id")
+    private Integer specId;
+    @Size(max = 45)
+    @Column(name = "spec_name")
+    private String specName;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sPECIALIZATIONspecid")
     private List<Student> studentList;
 
-    public Faculty() {
+    public Specialization() {
     }
 
-    public Faculty(String facId) {
-        this.facId = facId;
+    public Specialization(Integer specId) {
+        this.specId = specId;
     }
 
-    public String getFacId() {
-        return facId;
+    public Integer getSpecId() {
+        return specId;
     }
 
-    public void setFacId(String facId) {
-        this.facId = facId;
+    public void setSpecId(Integer specId) {
+        this.specId = specId;
     }
 
-    public String getFacName() {
-        return facName;
+    public String getSpecName() {
+        return specName;
     }
 
-    public void setFacName(String facName) {
-        this.facName = facName;
+    public void setSpecName(String specName) {
+        this.specName = specName;
     }
 
     @XmlTransient
@@ -82,18 +81,18 @@ public class Faculty implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (facId != null ? facId.hashCode() : 0);
+        hash += (specId != null ? specId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Faculty)) {
+        if (!(object instanceof Specialization)) {
             return false;
         }
-        Faculty other = (Faculty) object;
-        if ((this.facId == null && other.facId != null) || (this.facId != null && !this.facId.equals(other.facId))) {
+        Specialization other = (Specialization) object;
+        if ((this.specId == null && other.specId != null) || (this.specId != null && !this.specId.equals(other.specId))) {
             return false;
         }
         return true;
@@ -101,7 +100,7 @@ public class Faculty implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Faculty[ facId=" + facId + " ]";
+        return "com.mmuminiproject.model.Specialization[ specId=" + specId + " ]";
     }
     
 }

@@ -4,11 +4,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Goober Page</title>
+        <title>Stud Page</title>
     </head>
     <body>
         <jsp:include page="/WEB-INF/content/layouts/header.jsp" />
-        <h1>Oink oink I'm a little pig</h1>
+        <h1>Welcome to STUD Page</h1>
         <jsp:include page="/WEB-INF/content/layouts/footer.jsp" />
     </body>
 </html>

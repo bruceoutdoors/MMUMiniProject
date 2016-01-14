@@ -5,15 +5,15 @@
              version="2.0">
   <persistence-unit name="MMUMiniProjectMavenU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>com.mmuminiproject.model.Faculty</class>
-    <class>com.mmuminiproject.model.Admin</class>
-    <class>com.mmuminiproject.model.Role</class>
-    <class>com.mmuminiproject.model.User</class>
-    <class>com.mmuminiproject.model.Specialization</class>
-    <class>com.mmuminiproject.model.Lecturer</class>
-    <class>com.mmuminiproject.model.Comment</class>
-    <class>com.mmuminiproject.model.Project</class>
-    <class>com.mmuminiproject.model.Student</class>
+    <class>app.model.Lecturer</class>
+    <class>app.model.Role</class>
+    <class>app.model.Student</class>
+    <class>app.model.Project</class>
+    <class>app.model.Faculty</class>
+    <class>app.model.Specialization</class>
+    <class>app.model.Admin</class>
+    <class>app.model.Comment</class>
+    <class>app.model.User</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
