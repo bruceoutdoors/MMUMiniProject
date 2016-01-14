@@ -11,7 +11,9 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 
 * Project relies on Struts2 (https://struts.apache.org/) and Struts2 Convention Plugin to utilize MVC. Controller (called actions in Struts2) and model files are located in source packages under the `app` package. View files (*.jsp) are under _Web Pages_, in `WEB-INF/content`.
 * Migrations (a series of SQL files) are handled by FlywayDb (http://flywaydb.org/), and are located under source package `src/main/resources/db/migrations`. In Netbeans, you find this under "Other Sources". Each time a new migration is added, restart Tomcat and your database will be migrated.
+* Try not to edit applied migration files, but if you have to, wipe out your database before launching your application again, or your website might not even start from localhost (fail to launch at context error) and at openshift (it will just fail to deploy).
 * ORM (Object Relational Mapping) is handled by JPA (Java Persistence API), implemented by Hibernate.
+* Each time you add/remove an entity, you need to add a class node in `persistence.xml` under the `OpenShift` persistence unit, like so: `<class>app.model.Toothbrush</class>`, should you forget to do this, you will be receive an error that only appears during deployment: `java.lang.IllegalArgumentException: Unknown entity`. Unfortunate, but I wasn't able to get `hibernate.archive.autodetection` to work in OpenShift despite my best efforts ): 
 * Dependencies are handled by Maven; to add new libraries, look for them in http://mvnrepository.com/ and add the dependency into `pom.xml`. 
 * If `persistence.xml`, `web.xml`, or the `MigrateDb.java`, is not set properly, OpenShift doesn't give much indication aside a `Failed deployments: ./ROOT.war` error. 
 
