@@ -1,15 +1,15 @@
 -- MySQL Workbench Synchronization
--- Generated: 2016-01-11 20:51
--- Model: New Model
+-- Generated: 2016-01-15 01:32
+-- Model: MMU Mini Project Model
 -- Version: 1.0
--- Project: Name of the project
+-- Project: MMU Mini Project Model
 -- Author: Emyliana
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE TABLE `USER` (
+CREATE TABLE `user` (
   `user_id` INT(11) NOT NULL,
   `user_name` VARCHAR(45) NULL DEFAULT NULL,
   `user_email` VARCHAR(45) NULL DEFAULT NULL,
@@ -21,26 +21,26 @@ CREATE TABLE `USER` (
   INDEX `fk_USER_ROLE1_idx` (`ROLE_type_id` ASC),
   CONSTRAINT `fk_USER_ROLE1`
     FOREIGN KEY (`ROLE_type_id`)
-    REFERENCES `mmuminiproject`.`ROLE` (`role_id`)
+    REFERENCES `role` (`role_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `LECTURER` (
+CREATE TABLE `lecturer` (
   `user_id` INT(11) NOT NULL,
   `USER_user_id` INT(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   INDEX `fk_LECTURER_USER1_idx` (`USER_user_id` ASC),
   CONSTRAINT `fk_LECTURER_USER1`
     FOREIGN KEY (`USER_user_id`)
-    REFERENCES `mmuminiproject`.`USER` (`user_id`)
+    REFERENCES `user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `STUDENT` (
+CREATE TABLE `student` (
   `user_id` INT(11) NOT NULL,
   `FACULTY_fac_id` VARCHAR(10) NOT NULL,
   `SPECIALIZATION_spec_id` INT(11) NOT NULL,
@@ -53,55 +53,55 @@ CREATE TABLE `STUDENT` (
   INDEX `fk_STUDENT_PROJECT1_idx` (`PROJECT_category_id` ASC),
   CONSTRAINT `fk_STUDENT_FACULTY1`
     FOREIGN KEY (`FACULTY_fac_id`)
-    REFERENCES `mmuminiproject`.`FACULTY` (`fac_id`)
+    REFERENCES `faculty` (`fac_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_STUDENT_SPECIALIZATION1`
     FOREIGN KEY (`SPECIALIZATION_spec_id`)
-    REFERENCES `mmuminiproject`.`SPECIALIZATION` (`spec_id`)
+    REFERENCES `specialization` (`spec_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_STUDENT_USER1`
     FOREIGN KEY (`USER_user_id1`)
-    REFERENCES `mmuminiproject`.`USER` (`user_id`)
+    REFERENCES `user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_STUDENT_PROJECT1`
     FOREIGN KEY (`PROJECT_category_id`)
-    REFERENCES `mmuminiproject`.`PROJECT` (`project_id`)
+    REFERENCES `project` (`project_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `ADMIN` (
+CREATE TABLE `admin` (
   `user_id` INT(11) NOT NULL,
   `USER_user_id` INT(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   INDEX `fk_ADMIN_USER1_idx` (`USER_user_id` ASC),
   CONSTRAINT `fk_ADMIN_USER1`
     FOREIGN KEY (`USER_user_id`)
-    REFERENCES `mmuminiproject`.`USER` (`user_id`)
+    REFERENCES `user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `FACULTY` (
+CREATE TABLE `faculty` (
   `fac_id` VARCHAR(10) NOT NULL,
   `fac_name` VARCHAR(40) NULL DEFAULT NULL,
   PRIMARY KEY (`fac_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `SPECIALIZATION` (
+CREATE TABLE `specialization` (
   `spec_id` INT(11) NOT NULL,
   `spec_name` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`spec_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `PROJECT` (
+CREATE TABLE `project` (
   `project_id` INT(11) NOT NULL,
   `project_title` VARCHAR(45) NULL DEFAULT NULL,
   `project_grade` VARCHAR(2) NULL DEFAULT NULL,
@@ -116,13 +116,13 @@ CREATE TABLE `PROJECT` (
   INDEX `fk_PROJECT_LECTURER1_idx` (`LECTURER_user_id` ASC),
   CONSTRAINT `fk_PROJECT_LECTURER1`
     FOREIGN KEY (`LECTURER_user_id`)
-    REFERENCES `mmuminiproject`.`LECTURER` (`user_id`)
+    REFERENCES `lecturer` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `COMMENT` (
+CREATE TABLE `comment` (
   `comment_id` INT(11) NOT NULL,
   `commect_description` VARCHAR(45) NOT NULL,
   `USER_user_id` INT(11) NOT NULL,
@@ -130,13 +130,13 @@ CREATE TABLE `COMMENT` (
   INDEX `fk_COMMENT_USER1_idx` (`USER_user_id` ASC),
   CONSTRAINT `fk_COMMENT_USER1`
     FOREIGN KEY (`USER_user_id`)
-    REFERENCES `mmuminiproject`.`USER` (`user_id`)
+    REFERENCES `user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `ROLE` (
+CREATE TABLE `role` (
   `role_id` INT(11) NOT NULL,
   `role_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`role_id`))
