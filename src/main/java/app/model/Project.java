@@ -46,6 +46,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Project.findByEvaComment", query = "SELECT p FROM Project p WHERE p.evaComment = :evaComment")})
 public class Project implements Serializable {
 
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+    @ManyToOne(optional = false)
+    private Student studentId;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -201,6 +205,14 @@ public class Project implements Serializable {
     @Override
     public String toString() {
         return "app.model.Project[ projectId=" + projectId + " ]";
+    }
+
+    public Student getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Student studentId) {
+        this.studentId = studentId;
     }
     
 }
