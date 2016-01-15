@@ -9,6 +9,7 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 
 ## Important Dev Notes
 
+* `ERD.mwb` is a MySQL Workbench file (https://www.mysql.com/products/workbench/). We use this to generate our migrations via "Database > Synchronize Model...". Note that the generated DDL is not used verbatim.
 * Project relies on Struts2 (https://struts.apache.org/) and Struts2 Convention Plugin to utilize MVC. Controller (called actions in Struts2) and model files are located in source packages under the `app` package. View files (*.jsp) are under _Web Pages_, in `WEB-INF/content`.
 * Migrations (a series of SQL files) are handled by FlywayDb (http://flywaydb.org/), and are located under source package `src/main/resources/db/migrations`. In Netbeans, you find this under "Other Sources". Each time a new migration is added, restart Tomcat and your database will be migrated.
 * Try not to edit applied migration files, but if you have to, all databases that is created and modified by these migrations (yours, those that you are collaborating with, the database in OpenShift) must be wiped out before launching your application again, or your website and those collaborating with you might not even start from localhost (fail to launch at context error) and at openshift (it will just fail to deploy).
