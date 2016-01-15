@@ -6,7 +6,7 @@
 package app.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "faculty")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Faculty.findAll", query = "SELECT f FROM Faculty f"),
@@ -44,8 +42,8 @@ public class Faculty implements Serializable {
     @Size(max = 40)
     @Column(name = "fac_name")
     private String facName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fACULTYfacid")
-    private List<Student> studentList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facId")
+    private Collection<Student> studentCollection;
 
     public Faculty() {
     }
@@ -71,12 +69,12 @@ public class Faculty implements Serializable {
     }
 
     @XmlTransient
-    public List<Student> getStudentList() {
-        return studentList;
+    public Collection<Student> getStudentCollection() {
+        return studentCollection;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setStudentCollection(Collection<Student> studentCollection) {
+        this.studentCollection = studentCollection;
     }
 
     @Override
@@ -101,7 +99,7 @@ public class Faculty implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Faculty[ facId=" + facId + " ]";
+        return "app.model.Faculty[ facId=" + facId + " ]";
     }
     
 }

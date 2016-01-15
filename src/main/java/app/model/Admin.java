@@ -8,13 +8,10 @@ package app.model;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,50 +20,35 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "admin")
+@DiscriminatorValue("0")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a"),
-    @NamedQuery(name = "Admin.findByUserId", query = "SELECT a FROM Admin a WHERE a.userId = :userId")})
-public class Admin implements Serializable {
+    @NamedQuery(name = "Admin.findByAdminId", query = "SELECT a FROM Admin a WHERE a.adminId = :adminId")})
+public class Admin extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "user_id")
-    private Integer userId;
-    @JoinColumn(name = "USER_user_id", referencedColumnName = "user_id")
-    @ManyToOne(optional = false)
-    private User uSERuserid;
+    @Column(name = "admin_id")
+    private Integer adminId;
 
     public Admin() {
+        setRoleId(Role.getAdmin());
     }
 
-    public Admin(Integer userId) {
-        this.userId = userId;
+    public Integer getAdminId() {
+        return adminId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public User getUSERuserid() {
-        return uSERuserid;
-    }
-
-    public void setUSERuserid(User uSERuserid) {
-        this.uSERuserid = uSERuserid;
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
+        hash += (adminId != null ? adminId.hashCode() : 0);
         return hash;
     }
 
@@ -77,7 +59,7 @@ public class Admin implements Serializable {
             return false;
         }
         Admin other = (Admin) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
+        if ((this.adminId == null && other.adminId != null) || (this.adminId != null && !this.adminId.equals(other.adminId))) {
             return false;
         }
         return true;
@@ -85,7 +67,7 @@ public class Admin implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Admin[ userId=" + userId + " ]";
+        return "app.model.Admin[ adminId=" + adminId + " ]";
     }
     
 }

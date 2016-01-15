@@ -1,4 +1,4 @@
 INSERT INTO `role` VALUES
-(0, "Admin"),
-(1, "Lecturer"),
-(2, "Student");
+(0, "admin"),
+(1, "lecturer"),
+(2, "student");

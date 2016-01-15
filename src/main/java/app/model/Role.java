@@ -5,8 +5,9 @@
  */
 package app.model;
 
+import core.DB;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "role")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
@@ -45,8 +44,8 @@ public class Role implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "role_name")
     private String roleName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rOLEtypeid")
-    private List<User> userList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
+    private Collection<User> userCollection;
 
     public Role() {
     }
@@ -77,12 +76,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public List<User> getUserList() {
-        return userList;
+    public Collection<User> getUserCollection() {
+        return userCollection;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @Override
@@ -110,4 +109,27 @@ public class Role implements Serializable {
         return "com.mmuminiproject.model.Role[ roleId=" + roleId + " ]";
     }
     
+    public static Role getAdmin() {
+        return DB.getInstance().createEntityManager().find(Role.class, 0);
+}
+    
+    public static Role getStudent() {
+        return DB.getInstance().createEntityManager().find(Role.class, 2);
+    }
+    
+    public static Role getLecturer() {
+        return DB.getInstance().createEntityManager().find(Role.class, 1);
+    }
+    
+    public Boolean isAdmin() {
+        return roleId == 0;
+    }
+    
+    public Boolean isStudent() {
+        return roleId == 2;
+    }
+    
+    public Boolean isLecturer() {
+        return roleId == 1;
+    }
 }

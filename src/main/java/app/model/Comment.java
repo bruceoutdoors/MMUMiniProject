@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,12 +23,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "comment")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
     @NamedQuery(name = "Comment.findByCommentId", query = "SELECT c FROM Comment c WHERE c.commentId = :commentId"),
-    @NamedQuery(name = "Comment.findByCommectDescription", query = "SELECT c FROM Comment c WHERE c.commectDescription = :commectDescription")})
+    @NamedQuery(name = "Comment.findByCommentDescription", query = "SELECT c FROM Comment c WHERE c.commentDescription = :commentDescription")})
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,11 +39,11 @@ public class Comment implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "commect_description")
-    private String commectDescription;
-    @JoinColumn(name = "USER_user_id", referencedColumnName = "user_id")
+    @Column(name = "comment_description")
+    private String commentDescription;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
-    private User uSERuserid;
+    private User userId;
 
     public Comment() {
     }
@@ -54,9 +52,9 @@ public class Comment implements Serializable {
         this.commentId = commentId;
     }
 
-    public Comment(Integer commentId, String commectDescription) {
+    public Comment(Integer commentId, String commentDescription) {
         this.commentId = commentId;
-        this.commectDescription = commectDescription;
+        this.commentDescription = commentDescription;
     }
 
     public Integer getCommentId() {
@@ -67,20 +65,20 @@ public class Comment implements Serializable {
         this.commentId = commentId;
     }
 
-    public String getCommectDescription() {
-        return commectDescription;
+    public String getCommentDescription() {
+        return commentDescription;
     }
 
-    public void setCommectDescription(String commectDescription) {
-        this.commectDescription = commectDescription;
+    public void setCommentDescription(String commentDescription) {
+        this.commentDescription = commentDescription;
     }
 
-    public User getUSERuserid() {
-        return uSERuserid;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setUSERuserid(User uSERuserid) {
-        this.uSERuserid = uSERuserid;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -105,7 +103,7 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Comment[ commentId=" + commentId + " ]";
+        return "app.model.Comment[ commentId=" + commentId + " ]";
     }
     
 }

@@ -5,6 +5,7 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.archive.autodetection" value="class, hbm"/>
+      <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mmuminiproject"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

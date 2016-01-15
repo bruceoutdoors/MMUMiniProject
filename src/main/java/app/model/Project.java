@@ -6,8 +6,8 @@
 package app.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -31,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "project")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
@@ -76,11 +74,11 @@ public class Project implements Serializable {
     @Size(max = 50)
     @Column(name = "eva_comment")
     private String evaComment;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pROJECTcategoryid")
-    private List<Student> studentList;
-    @JoinColumn(name = "LECTURER_user_id", referencedColumnName = "user_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectId")
+    private Collection<Student> studentCollection;
+    @JoinColumn(name = "lecturer_id", referencedColumnName = "lecturer_id")
     @ManyToOne(optional = false)
-    private Lecturer lECTURERuserid;
+    private Lecturer lecturerId;
 
     public Project() {
     }
@@ -162,20 +160,20 @@ public class Project implements Serializable {
     }
 
     @XmlTransient
-    public List<Student> getStudentList() {
-        return studentList;
+    public Collection<Student> getStudentCollection() {
+        return studentCollection;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setStudentCollection(Collection<Student> studentCollection) {
+        this.studentCollection = studentCollection;
     }
 
-    public Lecturer getLECTURERuserid() {
-        return lECTURERuserid;
+    public Lecturer getLecturerId() {
+        return lecturerId;
     }
 
-    public void setLECTURERuserid(Lecturer lECTURERuserid) {
-        this.lECTURERuserid = lECTURERuserid;
+    public void setLecturerId(Lecturer lecturerId) {
+        this.lecturerId = lecturerId;
     }
 
     @Override
@@ -200,7 +198,7 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Project[ projectId=" + projectId + " ]";
+        return "app.model.Project[ projectId=" + projectId + " ]";
     }
     
 }

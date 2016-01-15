@@ -6,18 +6,15 @@
 package app.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -27,61 +24,47 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "lecturer")
+@DiscriminatorValue("1")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Lecturer.findAll", query = "SELECT l FROM Lecturer l"),
-    @NamedQuery(name = "Lecturer.findByUserId", query = "SELECT l FROM Lecturer l WHERE l.userId = :userId")})
-public class Lecturer implements Serializable {
+    @NamedQuery(name = "Lecturer.findByLecturerId", query = "SELECT l FROM Lecturer l WHERE l.lecturerId = :lecturerId")})
+public class Lecturer extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "user_id")
-    private Integer userId;
-    @JoinColumn(name = "USER_user_id", referencedColumnName = "user_id")
-    @ManyToOne(optional = false)
-    private User uSERuserid;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lECTURERuserid")
-    private List<Project> projectList;
+    @Column(name = "lecturer_id")
+    private Integer lecturerId;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecturerId")
+    private Collection<Project> projectCollection;
 
     public Lecturer() {
+        setRoleId(Role.getLecturer());
     }
 
-    public Lecturer(Integer userId) {
-        this.userId = userId;
+    public Integer getLecturerId() {
+        return lecturerId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public User getUSERuserid() {
-        return uSERuserid;
-    }
-
-    public void setUSERuserid(User uSERuserid) {
-        this.uSERuserid = uSERuserid;
+    public void setLecturerId(Integer lecturerId) {
+        this.lecturerId = lecturerId;
     }
 
     @XmlTransient
-    public List<Project> getProjectList() {
-        return projectList;
+    public Collection<Project> getProjectCollection() {
+        return projectCollection;
     }
 
-    public void setProjectList(List<Project> projectList) {
-        this.projectList = projectList;
+    public void setProjectCollection(Collection<Project> projectCollection) {
+        this.projectCollection = projectCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
+        hash += (lecturerId != null ? lecturerId.hashCode() : 0);
         return hash;
     }
 
@@ -92,7 +75,7 @@ public class Lecturer implements Serializable {
             return false;
         }
         Lecturer other = (Lecturer) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
+        if ((this.lecturerId == null && other.lecturerId != null) || (this.lecturerId != null && !this.lecturerId.equals(other.lecturerId))) {
             return false;
         }
         return true;
@@ -100,7 +83,7 @@ public class Lecturer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Lecturer[ userId=" + userId + " ]";
+        return "app.model.Lecturer[ lecturerId=" + lecturerId + " ]";
     }
     
 }

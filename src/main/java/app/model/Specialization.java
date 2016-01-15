@@ -6,7 +6,7 @@
 package app.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "specialization")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Specialization.findAll", query = "SELECT s FROM Specialization s"),
@@ -43,8 +41,8 @@ public class Specialization implements Serializable {
     @Size(max = 45)
     @Column(name = "spec_name")
     private String specName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sPECIALIZATIONspecid")
-    private List<Student> studentList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "specId")
+    private Collection<Student> studentCollection;
 
     public Specialization() {
     }
@@ -70,12 +68,12 @@ public class Specialization implements Serializable {
     }
 
     @XmlTransient
-    public List<Student> getStudentList() {
-        return studentList;
+    public Collection<Student> getStudentCollection() {
+        return studentCollection;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setStudentCollection(Collection<Student> studentCollection) {
+        this.studentCollection = studentCollection;
     }
 
     @Override
@@ -100,7 +98,7 @@ public class Specialization implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Specialization[ specId=" + specId + " ]";
+        return "app.model.Specialization[ specId=" + specId + " ]";
     }
     
 }

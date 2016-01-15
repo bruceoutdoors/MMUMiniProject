@@ -8,13 +8,12 @@ package app.model;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,83 +22,68 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruceoutdoors
  */
 @Entity
-@Table(name = "student")
+@DiscriminatorValue("2")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s"),
-    @NamedQuery(name = "Student.findByUserId", query = "SELECT s FROM Student s WHERE s.userId = :userId")})
-public class Student implements Serializable {
+    @NamedQuery(name = "Student.findByStudentId", query = "SELECT s FROM Student s WHERE s.studentId = :studentId")})
+public class Student extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "user_id")
-    private Integer userId;
-    @JoinColumn(name = "FACULTY_fac_id", referencedColumnName = "fac_id")
+    @Column(name = "student_id")
+    private Integer studentId;
+    @JoinColumn(name = "fac_id", referencedColumnName = "fac_id")
     @ManyToOne(optional = false)
-    private Faculty fACULTYfacid;
-    @JoinColumn(name = "PROJECT_category_id", referencedColumnName = "project_id")
+    private Faculty facId;
+    @JoinColumn(name = "spec_id", referencedColumnName = "spec_id")
     @ManyToOne(optional = false)
-    private Project pROJECTcategoryid;
-    @JoinColumn(name = "SPECIALIZATION_spec_id", referencedColumnName = "spec_id")
+    private Specialization specId;
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     @ManyToOne(optional = false)
-    private Specialization sPECIALIZATIONspecid;
-    @JoinColumn(name = "USER_user_id1", referencedColumnName = "user_id")
-    @ManyToOne(optional = false)
-    private User uSERuserid1;
+    private Project projectId;
 
     public Student() {
+        setRoleId(Role.getStudent());
     }
 
-    public Student(Integer userId) {
-        this.userId = userId;
+    public Integer getStudentId() {
+        return studentId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public Faculty getFacId() {
+        return facId;
     }
 
-    public Faculty getFACULTYfacid() {
-        return fACULTYfacid;
+    public void setFacId(Faculty facId) {
+        this.facId = facId;
     }
 
-    public void setFACULTYfacid(Faculty fACULTYfacid) {
-        this.fACULTYfacid = fACULTYfacid;
+    public Specialization getSpecId() {
+        return specId;
     }
 
-    public Project getPROJECTcategoryid() {
-        return pROJECTcategoryid;
+    public void setSpecId(Specialization specId) {
+        this.specId = specId;
     }
 
-    public void setPROJECTcategoryid(Project pROJECTcategoryid) {
-        this.pROJECTcategoryid = pROJECTcategoryid;
+    public Project getProjectId() {
+        return projectId;
     }
 
-    public Specialization getSPECIALIZATIONspecid() {
-        return sPECIALIZATIONspecid;
-    }
-
-    public void setSPECIALIZATIONspecid(Specialization sPECIALIZATIONspecid) {
-        this.sPECIALIZATIONspecid = sPECIALIZATIONspecid;
-    }
-
-    public User getUSERuserid1() {
-        return uSERuserid1;
-    }
-
-    public void setUSERuserid1(User uSERuserid1) {
-        this.uSERuserid1 = uSERuserid1;
+    public void setProjectId(Project projectId) {
+        this.projectId = projectId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
+        hash += (studentId != null ? studentId.hashCode() : 0);
         return hash;
     }
 
@@ -110,7 +94,7 @@ public class Student implements Serializable {
             return false;
         }
         Student other = (Student) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
+        if ((this.studentId == null && other.studentId != null) || (this.studentId != null && !this.studentId.equals(other.studentId))) {
             return false;
         }
         return true;
@@ -118,7 +102,7 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Student[ userId=" + userId + " ]";
+        return "app.model.Student[ studentId=" + studentId + " ]";
     }
     
 }

@@ -5,11 +5,13 @@
  */
 package app.action.inside;
 
+import app.model.Admin;
+import app.model.Lecturer;
 import app.model.Role;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
+import java.util.Date;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 
 public class GooberAction extends ActionSupport {
 
@@ -17,25 +19,44 @@ public class GooberAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-       
 
+//        EntityManager em = DB.getInstance().createEntityManager();
+//        
+//        em.getTransaction().begin();
+//        Role f = em.find(Role.class, 5);
+//        if (f == null) {
+//            f = new Role();
+//            f.setRoleId(5);
+//            f.setRoleName("Goober Lord");
+//            em.persist(f);
+//        } else {
+//            f.setRoleName("Goober Master");
+//        }
+//
+//        em.getTransaction().commit();
+//        
+//        talk = f.getRoleName();
         EntityManager em = DB.getInstance().createEntityManager();
-        
         em.getTransaction().begin();
-        Role f = em.find(Role.class, 5);
-        if (f == null) {
-            f = new Role();
-            f.setRoleId(5);
-            f.setRoleName("Goober Lord");
-            em.persist(f);
-        } else {
-            f.setRoleName("Goober Master");
+
+        Admin a = em.find(Admin.class, 2);
+
+        if (a == null) {
+            a = new Admin();
+            a.setUserId(2);
+            a.setAdminId(2400);
+            a.setUserEmail("ngsewlai@gmail.com");
+            a.setUserName("Morpheus");
+            a.setUserStatus("active");
+            a.setUserTel("0192312213");
+            a.setUserlastSignIn(new Date());
+            em.persist(a);
         }
 
+        talk = a.getUserName();
+        
         em.getTransaction().commit();
-        
-        talk = f.getRoleName();
-        
+
         return SUCCESS;
     }
 }
