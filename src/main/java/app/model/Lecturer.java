@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -24,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
+@Table(name = "lecturer")
 @DiscriminatorValue("1")
 @XmlRootElement
 @NamedQueries({

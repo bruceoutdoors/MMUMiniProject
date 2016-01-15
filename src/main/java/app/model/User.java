@@ -22,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruceoutdoors
  */
 @Entity
+@Table(name = "user")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="role_id", discriminatorType = DiscriminatorType.INTEGER)
 @XmlRootElement
