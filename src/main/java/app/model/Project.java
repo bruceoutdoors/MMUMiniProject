@@ -6,10 +6,8 @@
 package app.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,14 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -45,10 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Project.findByProjectStatus", query = "SELECT p FROM Project p WHERE p.projectStatus = :projectStatus"),
     @NamedQuery(name = "Project.findByEvaComment", query = "SELECT p FROM Project p WHERE p.evaComment = :evaComment")})
 public class Project implements Serializable {
-
-    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
-    @ManyToOne(optional = false)
-    private Student studentId;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,11 +72,12 @@ public class Project implements Serializable {
     @Size(max = 50)
     @Column(name = "eva_comment")
     private String evaComment;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectId")
-    private Collection<Student> studentCollection;
-    @JoinColumn(name = "lecturer_id", referencedColumnName = "lecturer_id")
+    @JoinColumn(name = "lecturer_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private Lecturer lecturerId;
+    @JoinColumn(name = "student_id", referencedColumnName = "user_id")
+    @ManyToOne(optional = false)
+    private Student studentId;
 
     public Project() {
     }
@@ -165,21 +158,20 @@ public class Project implements Serializable {
         this.evaComment = evaComment;
     }
 
-    @XmlTransient
-    public Collection<Student> getStudentCollection() {
-        return studentCollection;
-    }
-
-    public void setStudentCollection(Collection<Student> studentCollection) {
-        this.studentCollection = studentCollection;
-    }
-
     public Lecturer getLecturerId() {
         return lecturerId;
     }
 
     public void setLecturerId(Lecturer lecturerId) {
         this.lecturerId = lecturerId;
+    }
+
+    public Student getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Student studentId) {
+        this.studentId = studentId;
     }
 
     @Override
@@ -205,14 +197,6 @@ public class Project implements Serializable {
     @Override
     public String toString() {
         return "app.model.Project[ projectId=" + projectId + " ]";
-    }
-
-    public Student getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Student studentId) {
-        this.studentId = studentId;
     }
     
 }

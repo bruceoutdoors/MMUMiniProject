@@ -44,7 +44,6 @@ public class GooberAction extends ActionSupport {
         if (a == null) {
             a = new Admin();
             a.setUserId(2);
-            a.setAdminId(2400);
             a.setUserEmail("ngsewlai@gmail.com");
             a.setUserName("Morpheus");
             a.setUserStatus("active");

@@ -22,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUserTel", query = "SELECT u FROM User u WHERE u.userTel = :userTel"),
     @NamedQuery(name = "User.findByUserlastSignIn", query = "SELECT u FROM User u WHERE u.userlastSignIn = :userlastSignIn"),
     @NamedQuery(name = "User.findByUserStatus", query = "SELECT u FROM User u WHERE u.userStatus = :userStatus")})
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -70,6 +71,12 @@ public abstract class User implements Serializable {
     @Size(max = 45)
     @Column(name = "user_status")
     private String userStatus;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Student student;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Admin admin;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Lecturer lecturer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Comment> commentCollection;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
@@ -77,6 +84,10 @@ public abstract class User implements Serializable {
     private Role roleId;
 
     public User() {
+    }
+
+    public User(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getUserId() {
@@ -125,6 +136,30 @@ public abstract class User implements Serializable {
 
     public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
     }
 
     @XmlTransient

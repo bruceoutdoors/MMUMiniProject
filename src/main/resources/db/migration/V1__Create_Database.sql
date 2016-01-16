@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2016-01-16 02:10
+-- Generated: 2016-01-16 12:55
 -- Model: MMU Mini Project Model
 -- Version: 1.0
 -- Project: MMU Mini Project Model
@@ -28,9 +28,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `lecturer` (
-  `lecturer_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
-  PRIMARY KEY (`lecturer_id`),
+  PRIMARY KEY (`user_id`),
   INDEX `fk_LECTURER_USER1_idx` (`user_id` ASC),
   CONSTRAINT `fk_LECTURER_USER1`
     FOREIGN KEY (`user_id`)
@@ -41,16 +40,13 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `student` (
-  `student_id` INT(11) NOT NULL,
   `fac_id` VARCHAR(10) NOT NULL,
   `spec_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
-  `project_id` INT(11) NOT NULL,
-  PRIMARY KEY (`student_id`),
+  PRIMARY KEY (`user_id`),
   INDEX `fk_STUDENT_FACULTY1_idx` (`fac_id` ASC),
   INDEX `fk_STUDENT_SPECIALIZATION1_idx` (`spec_id` ASC),
   INDEX `fk_STUDENT_USER1_idx` (`user_id` ASC),
-  INDEX `fk_STUDENT_PROJECT1_idx` (`project_id` ASC),
   CONSTRAINT `fk_STUDENT_FACULTY1`
     FOREIGN KEY (`fac_id`)
     REFERENCES `faculty` (`fac_id`)
@@ -65,19 +61,13 @@ CREATE TABLE `student` (
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`user_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_STUDENT_PROJECT1`
-    FOREIGN KEY (`project_id`)
-    REFERENCES `project` (`project_id`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `admin` (
-  `admin_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
-  PRIMARY KEY (`admin_id`),
+  PRIMARY KEY (`user_id`),
   INDEX `fk_ADMIN_USER1_idx` (`user_id` ASC),
   CONSTRAINT `fk_ADMIN_USER1`
     FOREIGN KEY (`user_id`)
@@ -89,14 +79,14 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `faculty` (
   `fac_id` VARCHAR(10) NOT NULL,
-  `fac_name` VARCHAR(40) NULL DEFAULT NULL,
+  `fac_name` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`fac_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `specialization` (
   `spec_id` INT(11) NOT NULL,
-  `spec_name` VARCHAR(45) NULL DEFAULT NULL,
+  `spec_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`spec_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -112,11 +102,18 @@ CREATE TABLE `project` (
   `project_status` VARCHAR(15) NULL DEFAULT NULL,
   `eva_comment` VARCHAR(50) NULL DEFAULT NULL,
   `lecturer_id` INT(11) NOT NULL,
+  `student_id` INT(11) NOT NULL,
   PRIMARY KEY (`project_id`),
+  INDEX `fk_project_student1_idx` (`student_id` ASC),
   INDEX `fk_PROJECT_LECTURER1_idx` (`lecturer_id` ASC),
   CONSTRAINT `fk_PROJECT_LECTURER1`
     FOREIGN KEY (`lecturer_id`)
-    REFERENCES `lecturer` (`lecturer_id`)
+    REFERENCES `lecturer` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_project_student1`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `student` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

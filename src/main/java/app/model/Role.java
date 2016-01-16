@@ -108,7 +108,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mmuminiproject.model.Role[ roleId=" + roleId + " ]";
+        return "app.model.Role[ roleId=" + roleId + " ]";
     }
     
     public static Role getAdmin() {

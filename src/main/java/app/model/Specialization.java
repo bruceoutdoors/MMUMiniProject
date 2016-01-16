@@ -40,7 +40,9 @@ public class Specialization implements Serializable {
     @NotNull
     @Column(name = "spec_id")
     private Integer specId;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "spec_name")
     private String specName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "specId")
@@ -51,6 +53,11 @@ public class Specialization implements Serializable {
 
     public Specialization(Integer specId) {
         this.specId = specId;
+    }
+
+    public Specialization(Integer specId, String specName) {
+        this.specId = specId;
+        this.specName = specName;
     }
 
     public Integer getSpecId() {

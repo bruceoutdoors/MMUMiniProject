@@ -41,7 +41,9 @@ public class Faculty implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "fac_id")
     private String facId;
-    @Size(max = 40)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "fac_name")
     private String facName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facId")
@@ -52,6 +54,11 @@ public class Faculty implements Serializable {
 
     public Faculty(String facId) {
         this.facId = facId;
+    }
+
+    public Faculty(String facId, String facName) {
+        this.facId = facId;
+        this.facName = facName;
     }
 
     public String getFacId() {
