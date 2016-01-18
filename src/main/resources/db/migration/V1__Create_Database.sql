@@ -92,7 +92,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `project` (
-  `project_id` INT(11) NOT NULL,
+  `project_id` INT(11) NOT NULL AUTO_INCREMENT,
   `project_title` VARCHAR(45) NULL DEFAULT NULL,
   `project_grade` VARCHAR(2) NULL DEFAULT NULL,
   `start date` DATETIME NULL DEFAULT NULL,
