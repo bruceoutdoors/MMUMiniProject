@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2016-01-16 12:55
+-- Generated: 2016-01-18 13:51
 -- Model: MMU Mini Project Model
 -- Version: 1.0
 -- Project: MMU Mini Project Model
@@ -40,7 +40,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `student` (
-  `fac_id` VARCHAR(10) NOT NULL,
+  `fac_id` INT(11) NOT NULL,
   `spec_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
   PRIMARY KEY (`user_id`),
@@ -78,7 +78,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `faculty` (
-  `fac_id` VARCHAR(10) NOT NULL,
+  `fac_id` INT(11) NOT NULL,
   `fac_name` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`fac_id`))
 ENGINE = InnoDB

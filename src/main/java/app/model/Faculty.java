@@ -32,15 +32,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Faculty.findAll", query = "SELECT f FROM Faculty f"),
     @NamedQuery(name = "Faculty.findByFacId", query = "SELECT f FROM Faculty f WHERE f.facId = :facId"),
     @NamedQuery(name = "Faculty.findByFacName", query = "SELECT f FROM Faculty f WHERE f.facName = :facName")})
-public class Faculty implements Serializable {
+public class Faculty {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "fac_id")
-    private String facId;
+    private int facId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
@@ -52,20 +51,20 @@ public class Faculty implements Serializable {
     public Faculty() {
     }
 
-    public Faculty(String facId) {
+    public Faculty(int facId) {
         this.facId = facId;
     }
 
-    public Faculty(String facId, String facName) {
+    public Faculty(int facId, String facName) {
         this.facId = facId;
         this.facName = facName;
     }
 
-    public String getFacId() {
+    public int getFacId() {
         return facId;
     }
 
-    public void setFacId(String facId) {
+    public void setFacId(int facId) {
         this.facId = facId;
     }
 
@@ -85,30 +84,4 @@ public class Faculty implements Serializable {
     public void setStudentCollection(Collection<Student> studentCollection) {
         this.studentCollection = studentCollection;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (facId != null ? facId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Faculty)) {
-            return false;
-        }
-        Faculty other = (Faculty) object;
-        if ((this.facId == null && other.facId != null) || (this.facId != null && !this.facId.equals(other.facId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "app.model.Faculty[ facId=" + facId + " ]";
-    }
-    
 }
