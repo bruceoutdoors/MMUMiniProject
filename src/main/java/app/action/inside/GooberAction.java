@@ -36,10 +36,10 @@ public class GooberAction extends ActionSupport {
 //        em.getTransaction().commit();
 //        
 //        talk = f.getRoleName();
-        EntityManager em = DB.getInstance().createEntityManager();
-        em.getTransaction().begin();
+//        EntityManager em = DB.getInstance().createEntityManager();
+//        em.getTransaction().begin();
 
-        Admin a = em.find(Admin.class, 2);
+        Admin a = DB.getInstance().find(Admin.class, 2);
 
         if (a == null) {
             a = new Admin();
@@ -49,12 +49,12 @@ public class GooberAction extends ActionSupport {
             a.setUserStatus("active");
             a.setUserTel("0192312213");
             a.setUserlastSignIn(new Date());
-            em.persist(a);
+            DB.getInstance().persist(a);
         }
 
         talk = a.getUserName();
         
-        em.getTransaction().commit();
+//        em.getTransaction().commit();
 
         return SUCCESS;
     }

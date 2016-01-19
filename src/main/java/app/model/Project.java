@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -44,17 +46,17 @@ public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "project_id")
+    @Column(name = "project_id", unique=true)
     private Integer projectId;
-    @Size(max = 45)
+    @Size(max = 300)
     @Column(name = "project_title")
     private String projectTitle;
     @Size(max = 2)
     @Column(name = "project_grade")
     private String projectGrade;
-    @Column(name = "start date")
+    @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
     @Column(name = "due_date")
@@ -63,20 +65,18 @@ public class Project implements Serializable {
     @Column(name = "sub_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date subDate;
-    @Size(max = 80)
     @Column(name = "project_description")
     private String projectDescription;
     @Size(max = 15)
     @Column(name = "project_status")
     private String projectStatus;
-    @Size(max = 50)
     @Column(name = "eva_comment")
     private String evaComment;
     @JoinColumn(name = "lecturer_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private Lecturer lecturerId;
     @JoinColumn(name = "student_id", referencedColumnName = "user_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Student studentId;
 
     public Project() {

@@ -112,15 +112,15 @@ public class Role implements Serializable {
     }
     
     public static Role getAdmin() {
-        return DB.getInstance().createEntityManager().find(Role.class, 0);
+        return DB.getInstance().find(Role.class, 0);
 }
     
     public static Role getStudent() {
-        return DB.getInstance().createEntityManager().find(Role.class, 2);
+        return DB.getInstance().find(Role.class, 2);
     }
     
     public static Role getLecturer() {
-        return DB.getInstance().createEntityManager().find(Role.class, 1);
+        return DB.getInstance().find(Role.class, 1);
     }
     
     public Boolean isAdmin() {

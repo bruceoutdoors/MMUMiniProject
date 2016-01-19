@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Faculty.findByFacName", query = "SELECT f FROM Faculty f WHERE f.facName = :facName")})
 public class Faculty implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facId")
+    private Collection<Specialization> specializationCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -46,8 +49,6 @@ public class Faculty implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "fac_name")
     private String facName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facId")
-    private Collection<Student> studentCollection;
 
     public Faculty() {
     }
@@ -77,15 +78,6 @@ public class Faculty implements Serializable {
         this.facName = facName;
     }
 
-    @XmlTransient
-    public Collection<Student> getStudentCollection() {
-        return studentCollection;
-    }
-
-    public void setStudentCollection(Collection<Student> studentCollection) {
-        this.studentCollection = studentCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,6 +101,15 @@ public class Faculty implements Serializable {
     @Override
     public String toString() {
         return "app.model.Faculty[ facId=" + facId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Specialization> getSpecializationCollection() {
+        return specializationCollection;
+    }
+
+    public void setSpecializationCollection(Collection<Specialization> specializationCollection) {
+        this.specializationCollection = specializationCollection;
     }
     
 }

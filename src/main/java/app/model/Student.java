@@ -6,9 +6,12 @@
 package app.model;
 
 import java.util.Collection;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -35,9 +38,6 @@ public class Student extends User {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private User user;
-    @JoinColumn(name = "fac_id", referencedColumnName = "fac_id")
-    @ManyToOne(optional = false)
-    private Faculty facId;
     @JoinColumn(name = "spec_id", referencedColumnName = "spec_id")
     @ManyToOne(optional = false)
     private Specialization specId;
@@ -46,14 +46,6 @@ public class Student extends User {
 
     public Student() {
         setRoleId(Role.getStudent());
-    }
-
-    public Faculty getFacId() {
-        return facId;
-    }
-
-    public void setFacId(Faculty facId) {
-        this.facId = facId;
     }
 
     public Specialization getSpecId() {

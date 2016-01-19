@@ -40,7 +40,7 @@ public class Comment implements Serializable {
     private Integer commentId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1)
     @Column(name = "comment_description")
     private String commentDescription;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
