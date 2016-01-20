@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,11 +34,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Comment.findByCommentDescription", query = "SELECT c FROM Comment c WHERE c.commentDescription = :commentDescription")})
 public class Comment implements Serializable {
 
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
+    @ManyToOne(optional = false)
+    private Project projectId;
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "comment_id")
+    @Column(name = "comment_id", unique=true)
     private Integer commentId;
     @Basic(optional = false)
     @NotNull
@@ -106,6 +112,14 @@ public class Comment implements Serializable {
     @Override
     public String toString() {
         return "app.model.Comment[ commentId=" + commentId + " ]";
+    }
+
+    public Project getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Project projectId) {
+        this.projectId = projectId;
     }
     
 }

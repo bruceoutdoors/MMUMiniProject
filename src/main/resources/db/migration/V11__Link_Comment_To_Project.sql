@@ -1,0 +1,26 @@
+-- MySQL Workbench Synchronization
+-- Generated: 2016-01-20 10:13
+-- Model: MMU Mini Project Model
+-- Version: 1.0
+-- Project: MMU Mini Project Model
+-- Author: Emyliana
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+ALTER TABLE `comment` 
+ADD COLUMN `project_id` INT(11) NOT NULL AFTER `user_id`,
+ADD INDEX `fk_comment_project1_idx` (`project_id` ASC);
+
+ALTER TABLE `comment` 
+ADD CONSTRAINT `fk_comment_project1`
+  FOREIGN KEY (`project_id`)
+  REFERENCES `project` (`project_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
