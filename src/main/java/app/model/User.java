@@ -46,9 +46,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
     @NamedQuery(name = "User.findByUserEmail", query = "SELECT u FROM User u WHERE u.userEmail = :userEmail"),
     @NamedQuery(name = "User.findByUserTel", query = "SELECT u FROM User u WHERE u.userTel = :userTel"),
-    @NamedQuery(name = "User.findByUserlastSignIn", query = "SELECT u FROM User u WHERE u.userlastSignIn = :userlastSignIn"),
-    @NamedQuery(name = "User.findByUserStatus", query = "SELECT u FROM User u WHERE u.userStatus = :userStatus")})
+    @NamedQuery(name = "User.findByUserActive", query = "SELECT u FROM User u WHERE u.userActive = :userActive"),
+    @NamedQuery(name = "User.findByUserlastSignIn", query = "SELECT u FROM User u WHERE u.userlastSignIn = :userlastSignIn")})
 public class User implements Serializable {
+
+    @Column(name = "user_active")
+    private Boolean userActive = true;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,9 +71,6 @@ public class User implements Serializable {
     @Column(name = "user_lastSignIn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date userlastSignIn;
-    @Size(max = 45)
-    @Column(name = "user_status")
-    private String userStatus;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Student student;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
@@ -128,14 +128,6 @@ public class User implements Serializable {
 
     public void setUserlastSignIn(Date userlastSignIn) {
         this.userlastSignIn = userlastSignIn;
-    }
-
-    public String getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(String userStatus) {
-        this.userStatus = userStatus;
     }
 
     public Student getStudent() {
@@ -202,6 +194,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "app.model.User[ userId=" + userId + " ]";
+    }
+
+    public Boolean getUserActive() {
+        return userActive;
+    }
+
+    public void setUserActive(Boolean userActive) {
+        this.userActive = userActive;
     }
     
 }
