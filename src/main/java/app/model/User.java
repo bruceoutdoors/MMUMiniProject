@@ -5,6 +5,8 @@
  */
 package app.model;
 
+import static com.opensymphony.xwork2.Action.INPUT;
+import core.DB;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NoResultException;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -50,6 +53,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUserlastSignIn", query = "SELECT u FROM User u WHERE u.userlastSignIn = :userlastSignIn")})
 public class User implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "user_password")
+    private String userPassword;
+
     @Column(name = "user_active")
     private Boolean userActive = true;
 
@@ -60,6 +69,7 @@ public class User implements Serializable {
     @Column(name = "user_id")
     private Integer userId;
     @Size(max = 45)
+    @NotNull
     @Column(name = "user_name")
     private String userName;
     @Size(max = 45)
@@ -202,6 +212,33 @@ public class User implements Serializable {
 
     public void setUserActive(Boolean userActive) {
         this.userActive = userActive;
+    }
+    
+    public static User login(String username, String password) {
+        User u;
+        
+        try {
+            u = (User) DB.getInstance()
+                .createNamedQuery("User.findByUserName")
+                .setParameter("userName", username)
+                .getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+        
+        if (!u.getUserPassword().equals(password)) {
+            return null;
+        }
+        
+        return u;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
     
 }

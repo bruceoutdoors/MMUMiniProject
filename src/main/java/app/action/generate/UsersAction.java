@@ -52,6 +52,7 @@ public class UsersAction extends ActionSupport {
 
     private void generateUser(User u) {
         Person p = fairy.person();
+        u.setUserPassword(p.password());
         u.setUserId(ThreadLocalRandom.current().nextInt(1000000, 9999999));
         u.setUserEmail(p.email());
         u.setUserName(p.username());
