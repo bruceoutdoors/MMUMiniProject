@@ -35,8 +35,7 @@ public class ProjectsAction extends ActionSupport {
         "C+", "C", "C-", "D+", "D", "F"
     };
 
-    @Override
-    public String execute() throws Exception {
+    public String index() throws Exception {
         fairy = Fairy.create();
 
         // ** GENERATE PROJECTS ** //

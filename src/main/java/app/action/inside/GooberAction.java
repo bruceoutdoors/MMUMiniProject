@@ -17,8 +17,7 @@ public class GooberAction extends ActionSupport {
 
     public String talk;
 
-    @Override
-    public String execute() throws Exception {
+    public String index() throws Exception {
 
 //        EntityManager em = DB.getInstance().createEntityManager();
 //        

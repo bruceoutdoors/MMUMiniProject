@@ -13,8 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class HomeAction extends ActionSupport {
     public String para;
     
-    @Override
-    public String execute() {
+    public String index() {
         para = (System.getenv("OPENSHIFT_APP_NAME") == null ? "Localhost" : "Openshift");
         return SUCCESS;
     }

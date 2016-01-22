@@ -23,8 +23,7 @@ public class CommentsAction extends ActionSupport {
 
     private Fairy fairy;
 
-    @Override
-    public String execute() throws Exception {
+    public String index() throws Exception {
         fairy = Fairy.create();
 
         // ** GENERATE COMMENTS ** //

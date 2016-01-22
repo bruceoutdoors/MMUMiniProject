@@ -22,8 +22,7 @@ public class UsersAction extends ActionSupport {
     public String talk;
     private Fairy fairy;
 
-    @Override
-    public String execute() throws Exception {
+    public String index() throws Exception {
         fairy = Fairy.create();
 
         // ** GENERATE STUDENTS, ADMINS AND LECTURERS ** //
