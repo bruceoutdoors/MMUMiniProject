@@ -10,6 +10,8 @@ import core.DB;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,8 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "user")
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="role_id", discriminatorType = DiscriminatorType.INTEGER)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "role_id", discriminatorType = DiscriminatorType.INTEGER)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
@@ -213,25 +215,6 @@ public class User implements Serializable {
     public void setUserActive(Boolean userActive) {
         this.userActive = userActive;
     }
-    
-    public static User login(String username, String password) {
-        User u;
-        
-        try {
-            u = (User) DB.getInstance()
-                .createNamedQuery("User.findByUserName")
-                .setParameter("userName", username)
-                .getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
-        
-        if (!u.getUserPassword().equals(password)) {
-            return null;
-        }
-        
-        return u;
-    }
 
     public String getUserPassword() {
         return userPassword;
@@ -240,5 +223,5 @@ public class User implements Serializable {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
-    
+
 }

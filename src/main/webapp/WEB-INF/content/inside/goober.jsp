@@ -7,9 +7,9 @@
         <title>Goober Page</title>
     </head>
     <body>
-        <jsp:include page="/WEB-INF/content/layouts/header.jsp" />
+        <jsp:include page="/WEB-INF/layouts/header.jsp" />
         <h1>Oink oink I'm a little pig</h1>
         <p><s:property value="talk" /></p>
-        <jsp:include page="/WEB-INF/content/layouts/footer.jsp" />
+        <jsp:include page="/WEB-INF/layouts/footer.jsp" />
     </body>
 </html>

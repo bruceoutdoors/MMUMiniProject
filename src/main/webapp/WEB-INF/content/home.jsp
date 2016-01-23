@@ -3,13 +3,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Page</title>
+        <jsp:include page="/WEB-INF/layouts/head.jsp" />
     </head>
     <body>
-        <jsp:include page="/WEB-INF/content/layouts/header.jsp" />
-        <h1>Hello Worsssld!</h1>
-        <p>Para suppose to be: <s:property value="para" /></p>
-        <jsp:include page="/WEB-INF/content/layouts/footer.jsp" />
+        <jsp:include page="/WEB-INF/layouts/header.jsp" />
+        <div class="container">
+            <h1>Hello Worsssld!</h1>
+            <p>Para suppose to be: <s:property value="para" /></p>
+        </div>
+        <jsp:include page="/WEB-INF/layouts/footer.jsp" />
     </body>
 </html>

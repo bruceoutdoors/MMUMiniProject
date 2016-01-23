@@ -3,20 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.action;
+package app.action.user;
 
 import com.opensymphony.xwork2.ActionSupport;
+import core.LoginManager;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
+
 /**
  *
  * @author bruceoutdoors
  */
-public class HomeAction extends ActionSupport {
-    public String para;
-    public String alertMsg = "<b>Success!</b> Success alert message";
-    public String alertType = "success";
-    
+@Results({
+    @Result(name = "success", location = "/", type = "redirect")
+})
+public class LogoutAction extends ActionSupport  {
+
     public String index() {
-        para = (System.getenv("OPENSHIFT_APP_NAME") == null ? "Localhost" : "Openshift");
+        LoginManager.logout();
         return SUCCESS;
     }
 }
