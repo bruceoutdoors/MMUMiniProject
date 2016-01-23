@@ -30,7 +30,7 @@ public class CommentsAction extends ActionSupport {
         List<Project> projects = DB.getInstance().createNamedQuery("Project.findAll").getResultList();
         List<User> users = DB.getInstance().createNamedQuery("User.findAll").getResultList();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 25; i++) {
             Comment c = new Comment();
             c.setUserId(users.get(ThreadLocalRandom.current().nextInt(0, users.size())));
             c.setProjectId(projects.get(ThreadLocalRandom.current().nextInt(0, projects.size())));

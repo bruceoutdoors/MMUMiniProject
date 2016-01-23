@@ -48,6 +48,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Project.findByEvaComment", query = "SELECT p FROM Project p WHERE p.evaComment = :evaComment")})
 public class Project implements Serializable {
 
+    @JoinColumn(name = "spec_id", referencedColumnName = "spec_id")
+    @ManyToOne(optional = false)
+    private Specialization specId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectId")
     private Collection<Comment> commentCollection;
 
@@ -213,6 +217,14 @@ public class Project implements Serializable {
 
     public void setCommentCollection(Collection<Comment> commentCollection) {
         this.commentCollection = commentCollection;
+    }
+
+    public Specialization getSpecId() {
+        return specId;
+    }
+
+    public void setSpecId(Specialization specId) {
+        this.specId = specId;
     }
     
 }

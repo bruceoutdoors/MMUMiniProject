@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -35,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Specialization.findBySpecId", query = "SELECT s FROM Specialization s WHERE s.specId = :specId"),
     @NamedQuery(name = "Specialization.findBySpecName", query = "SELECT s FROM Specialization s WHERE s.specName = :specName")})
 public class Specialization implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "specId")
+    private Collection<Project> projectCollection;
 
     @JoinColumn(name = "fac_id", referencedColumnName = "fac_id")
     @ManyToOne(optional = false)
@@ -122,6 +126,16 @@ public class Specialization implements Serializable {
 
     public void setFacId(Faculty facId) {
         this.facId = facId;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<Project> getProjectCollection() {
+        return projectCollection;
+    }
+
+    public void setProjectCollection(Collection<Project> projectCollection) {
+        this.projectCollection = projectCollection;
     }
     
 }

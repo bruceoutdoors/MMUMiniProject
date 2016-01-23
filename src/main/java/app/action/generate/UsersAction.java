@@ -26,20 +26,20 @@ public class UsersAction extends ActionSupport {
         fairy = Fairy.create();
 
         // ** GENERATE STUDENTS, ADMINS AND LECTURERS ** //
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 15; i++) {
             Lecturer a = new Lecturer();
             generateUser(a);
             DB.getInstance().persist(a);
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             Admin a = new Admin();
             generateUser(a);
             DB.getInstance().persist(a);
         }
 
         List<Specialization> specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 60; i++) {
             Student a = new Student();
             generateUser(a);
             a.setSpecId(specs.get(ThreadLocalRandom.current().nextInt(0, specs.size())));

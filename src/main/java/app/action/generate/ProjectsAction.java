@@ -8,6 +8,7 @@ package app.action.generate;
 import app.model.Lecturer;
 import app.model.Project;
 import app.model.Student;
+import app.model.Specialization;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
@@ -41,11 +42,12 @@ public class ProjectsAction extends ActionSupport {
         // ** GENERATE PROJECTS ** //
         List<Lecturer> lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
         List<Student> students = DB.getInstance().createNamedQuery("Student.findAll").getResultList();
+        List<Specialization> specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
 
-        for (int i = 0; i < 250; i++) {
+        for (int i = 0; i < 50; i++) {
             Project p = new Project();
             p.setLecturerId(lecturers.get(ThreadLocalRandom.current().nextInt(0, lecturers.size())));
-
+            p.setSpecId(specs.get(ThreadLocalRandom.current().nextInt(0, specs.size())));
             p.setProjectTitle(fairy.textProducer().sentence());
 
             StringBuilder content = new StringBuilder();
