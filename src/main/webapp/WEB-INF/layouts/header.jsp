@@ -15,9 +15,9 @@
     <h2>I am the header. <%= welcomeMessage%></h2>
     
     <% if (u != null) { %>
-    <a href="<s:url namespace="/user" action="logout" />">Logout</a>
+    <a  onclick="return confirm('Are you sure you want to log out?')" href="${pageContext.request.contextPath}/user/logout">Logout</a>
     <% } else { %>
-    <a href="<s:url namespace="/user" action="login" />">Login</a>
+    <a href="${pageContext.request.contextPath}/user/login">Login</a>
     <% }%>
 
     <%-- Show alerts (fill properties "alertMsg" and optional "alertType"), if exists --%>
