@@ -10,6 +10,7 @@ import app.model.Project;
 import app.model.Specialization;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import static org.apache.struts2.ServletActionContext.getServletContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -41,6 +44,11 @@ public class ProjectAction extends ActionSupport {
     public Project project;
     public int id;
     public Date today = new Date();
+
+    // file upload
+    private File file;
+    private String contentType;
+    private String filename;
 
     public final String DATE_FORMAT = "dd-MM-yyyy hh:mma";
 
@@ -97,6 +105,18 @@ public class ProjectAction extends ActionSupport {
                 .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
                 .getSingleResult());
         p.setProjectStatus(Project.status.UNASSIGNED.name());
+
+        // file upload
+        if (file != null) {
+            String uploadDir = new File(getServletContext()
+                    .getRealPath("/"))
+                    .getParentFile()
+                    .getParent() + File.separator + "uploads" + File.separator;
+            File destFile = new File(uploadDir, filename);
+            FileUtils.copyFile(file, destFile);
+            p.setProjectFile(uploadDir + filename);
+        }
+        
         DB.getInstance().persist(p);
 
         alertMsg = "Created project: " + p.getProjectTitle();
@@ -153,5 +173,18 @@ public class ProjectAction extends ActionSupport {
                 .createNamedQuery("Project.findByProjectId")
                 .setParameter("projectId", id)
                 .getSingleResult();
+    }
+
+    // File upload functionality:
+    public void setUpload(File file) {
+        this.file = file;
+    }
+
+    public void setUploadContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public void setUploadFileName(String filename) {
+        this.filename = filename;
     }
 }

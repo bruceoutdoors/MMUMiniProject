@@ -18,6 +18,7 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 * Each time you add/remove an entity, you need to add a class node in `persistence.xml` under the `OpenShift` persistence unit, like so: `<class>app.model.Toothbrush</class>`, should you forget to do this, you will be receive an error that only appears during deployment: `java.lang.IllegalArgumentException: Unknown entity`. Inconvenient, but I wasn't able to get `hibernate.archive.autodetection` to work in OpenShift despite my best efforts ): 
 * Dependencies are handled by Maven; to add new libraries, look for them in http://mvnrepository.com/ and add the dependency into `pom.xml`. 
 * If `persistence.xml`, `web.xml`, or the `MigrateDb.java`, is not set properly, OpenShift doesn't give much indication aside a `Failed deployments: ./ROOT.war` error. 
+* File uploads only work locally as of this writing.
 
 ## Tips
 
