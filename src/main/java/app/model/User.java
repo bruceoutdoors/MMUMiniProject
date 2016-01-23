@@ -223,5 +223,17 @@ public class User implements Serializable {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
+    
+    public Boolean isAdmin() {
+        return roleId.getRoleId() == 0;
+    }
+    
+    public Boolean isStudent() {
+        return roleId.getRoleId() == 2;
+    }
+    
+    public Boolean isLecturer() {
+        return roleId.getRoleId() == 1;
+    }
 
 }

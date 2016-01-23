@@ -113,7 +113,7 @@ public class Role implements Serializable {
     
     public static Role getAdmin() {
         return DB.getInstance().find(Role.class, 0);
-}
+    }
     
     public static Role getStudent() {
         return DB.getInstance().find(Role.class, 2);
@@ -121,17 +121,5 @@ public class Role implements Serializable {
     
     public static Role getLecturer() {
         return DB.getInstance().find(Role.class, 1);
-    }
-    
-    public Boolean isAdmin() {
-        return roleId == 0;
-    }
-    
-    public Boolean isStudent() {
-        return roleId == 2;
-    }
-    
-    public Boolean isLecturer() {
-        return roleId == 1;
     }
 }
