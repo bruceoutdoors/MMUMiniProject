@@ -90,5 +90,9 @@ public class DB {
             }
         });
     }
+    
+    public EntityManager getEntityManager() {
+        return em;
+    }
 
 }

@@ -69,7 +69,7 @@ public class Project implements Serializable {
     private String projectGrade;
     @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
+    private Date startDate = new Date();
     @Column(name = "due_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
@@ -89,6 +89,14 @@ public class Project implements Serializable {
     @JoinColumn(name = "student_id", referencedColumnName = "user_id")
     @ManyToOne(optional = true)
     private Student studentId;
+
+    public static enum status {
+        UNASSIGNED,
+        ASSIGNED,
+        SUBMITTED, 
+        EVALUATED,
+        OVERDUED
+    }
 
     public Project() {
     }
@@ -226,5 +234,5 @@ public class Project implements Serializable {
     public void setSpecId(Specialization specId) {
         this.specId = specId;
     }
-    
+
 }
