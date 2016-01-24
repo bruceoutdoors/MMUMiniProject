@@ -5,7 +5,7 @@
  */
 package app.model;
 
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -35,19 +35,19 @@ public class Lecturer extends User  {
     @OneToOne(optional = false)
     private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecturerId")
-    private Collection<Project> projectCollection;
+    private List<Project> projectList;
 
     public Lecturer() {
         setRoleId(Role.getLecturer());
     }
 
     @XmlTransient
-    public Collection<Project> getProjectCollection() {
-        return projectCollection;
+    public List<Project> getProjectList() {
+        return projectList;
     }
 
-    public void setProjectCollection(Collection<Project> projectCollection) {
-        this.projectCollection = projectCollection;
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
     }
 
     public User getUser() {

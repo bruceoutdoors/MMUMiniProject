@@ -8,7 +8,7 @@ package app.model;
 import static com.opensymphony.xwork2.Action.INPUT;
 import core.DB;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,7 +90,7 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Lecturer lecturer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Comment> commentCollection;
+    private List<Comment> commentList;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne(optional = false)
     private Role roleId;
@@ -167,12 +167,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Comment> getCommentCollection() {
-        return commentCollection;
+    public List<Comment> getcommentList() {
+        return commentList;
     }
 
-    public void setCommentCollection(Collection<Comment> commentCollection) {
-        this.commentCollection = commentCollection;
+    public void setcommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     public Role getRoleId() {

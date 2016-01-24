@@ -7,7 +7,7 @@ package app.model;
 
 import core.DB;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,7 +47,7 @@ public class Role implements Serializable {
     @Column(name = "role_name")
     private String roleName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
-    private Collection<User> userCollection;
+    private List<User> userList;
 
     public Role() {
     }
@@ -78,12 +78,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override

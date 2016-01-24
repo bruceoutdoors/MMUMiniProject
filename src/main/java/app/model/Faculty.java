@@ -6,7 +6,7 @@
 package app.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Faculty implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facId")
-    private Collection<Specialization> specializationCollection;
+    private List<Specialization> specializationList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -104,12 +104,12 @@ public class Faculty implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Specialization> getSpecializationCollection() {
-        return specializationCollection;
+    public List<Specialization> getSpecializationList() {
+        return specializationList;
     }
 
-    public void setSpecializationCollection(Collection<Specialization> specializationCollection) {
-        this.specializationCollection = specializationCollection;
+    public void setSpecializationList(List<Specialization> specializationList) {
+        this.specializationList = specializationList;
     }
     
 }

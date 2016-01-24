@@ -6,8 +6,8 @@
 package app.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,7 +59,7 @@ public class Project implements Serializable {
     private Specialization specId;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectId")
-    private Collection<Comment> commentCollection;
+    private List<Comment> commentList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -216,12 +216,12 @@ public class Project implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Comment> getCommentCollection() {
-        return commentCollection;
+    public List<Comment> getCommentList() {
+        return commentList;
     }
 
-    public void setCommentCollection(Collection<Comment> commentCollection) {
-        this.commentCollection = commentCollection;
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     public Specialization getSpecId() {

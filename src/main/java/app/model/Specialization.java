@@ -6,7 +6,7 @@
 package app.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,7 +38,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class Specialization implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "specId")
-    private Collection<Project> projectCollection;
+    private List<Project> projectList;
 
     @JoinColumn(name = "fac_id", referencedColumnName = "fac_id")
     @ManyToOne(optional = false)
@@ -56,7 +56,7 @@ public class Specialization implements Serializable {
     @Column(name = "spec_name")
     private String specName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "specId")
-    private Collection<Student> studentCollection;
+    private List<Student> studentList;
 
     public Specialization() {
     }
@@ -87,12 +87,12 @@ public class Specialization implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Student> getStudentCollection() {
-        return studentCollection;
+    public List<Student> getStudentList() {
+        return studentList;
     }
 
-    public void setStudentCollection(Collection<Student> studentCollection) {
-        this.studentCollection = studentCollection;
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     @Override
@@ -130,12 +130,12 @@ public class Specialization implements Serializable {
 
     @XmlTransient
     @JsonIgnore
-    public Collection<Project> getProjectCollection() {
-        return projectCollection;
+    public List<Project> getProjectList() {
+        return projectList;
     }
 
-    public void setProjectCollection(Collection<Project> projectCollection) {
-        this.projectCollection = projectCollection;
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package app.model;
 
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,7 +42,7 @@ public class Student extends User {
     @ManyToOne(optional = false)
     private Specialization specId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentId")
-    private Collection<Project> projectCollection;
+    private List<Project> projectList;
 
     public Student() {
         setRoleId(Role.getStudent());
@@ -57,12 +57,12 @@ public class Student extends User {
     }
 
     @XmlTransient
-    public Collection<Project> getProjectCollection() {
-        return projectCollection;
+    public List<Project> getProjectList() {
+        return projectList;
     }
 
-    public void setProjectCollection(Collection<Project> projectCollection) {
-        this.projectCollection = projectCollection;
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
     }
 
     public User getUser() {

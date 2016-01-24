@@ -88,7 +88,7 @@
                                 <li>Start date: <s:date name="top.startDate" format="dd-MM-yyyy hh:mma" /></li>
                                 <li>Due date: <s:date name="top.dueDate"  nice="true"/></li>
                                 <li>Submission Date: <s:date name="top.subDate" format="dd-MM-yyyy hh:mma" /></li>
-                                <li>Comment count: <s:property value="top.commentCollection.size" /></li>
+                                <li>Comment count: <s:property value="top.commentList.size" /></li>
                                 <li>Project Active: <s:property value="top.projectActive" /></li>
                                 <li>Specialization: <s:property value="top.specId.specName" /></li>
                                 <li>Lecturer: <s:property value="top.lecturerId.userName" /></li>
