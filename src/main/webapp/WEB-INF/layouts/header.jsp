@@ -19,6 +19,7 @@
     <% } else { %>
     <a href="${pageContext.request.contextPath}/user/login">Login</a>
     <% }%>
+    || <a href="${pageContext.request.contextPath}/project">projects</a>
 
     <%-- Show alerts (fill properties "alertMsg" and optional "alertType"), if exists --%>
     <s:if test="%{alertMsg != null}" >

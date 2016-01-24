@@ -44,11 +44,40 @@
                     </select>
                 </div>
                 <div class="form-group col-sm-12">
+                    Active projects:  
+                    <select class="form-control" name="active">
+                        <option value="" selected>Both Active and Inactive Projects </option>
+                        <option value="yes"
+                                <s:if test="%{#parameters.active[0] == 'yes'}">
+                                    selected 
+                                </s:if> >Active Projects Only</option> 
+                        <option value="no"<s:if test="%{#parameters.active[0] == 'no'}">
+                                    selected 
+                                </s:if> >Inactive Projects Only</option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-12">
+                    Project Has Comments?  
+                    <select class="form-control" name="cmnts">
+                        <option value="" selected>Not important</option>
+                        <option value="yes"
+                                <s:if test="%{#parameters.cmnts[0] == 'yes'}">
+                                    selected 
+                                </s:if> >Project with comments</option> 
+                        <option value="no"<s:if test="%{#parameters.cmnts[0] == 'no'}">
+                                    selected 
+                                </s:if> >Project with no comments</option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-12">
                     <button type="submit" class="btn btn-primary col-sm-3">Submit</button>
                 </div>
             </form>
 
             <div class="form-group col-sm-12">
+                <p>A total of <b><s:property value="projectList.size" /></b> projects found:</p>
                 <ol>
                     <s:iterator value="projectList">
                         <li>
@@ -60,7 +89,7 @@
                                 <li>Due date: <s:date name="top.dueDate"  nice="true"/></li>
                                 <li>Submission Date: <s:date name="top.subDate" format="dd-MM-yyyy hh:mma" /></li>
                                 <li>Comment count: <s:property value="top.commentCollection.size" /></li>
-                                <li>Status: <s:property value="top.projectStatus" /></li>
+                                <li>Project Active: <s:property value="top.projectActive" /></li>
                                 <li>Specialization: <s:property value="top.specId.specName" /></li>
                                 <li>Lecturer: <s:property value="top.lecturerId.userName" /></li>
                             </ul>

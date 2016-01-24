@@ -79,6 +79,24 @@ public class ProjectAction extends ActionSupport {
             query.append(" AND p.lecturerId = ").append(lecturer);
         }
         
+        String active = request.getParameter("active");
+        if (active != null && !active.isEmpty()) {
+            if (active.equals("yes")) {
+                query.append(" AND p.projectActive = true");
+            } else if (active.equals("no")) {
+                query.append(" AND p.projectActive = false");
+            }
+        }
+        
+        String cmnts = request.getParameter("cmnts");
+        if (cmnts != null && !cmnts.isEmpty()) {
+            if (cmnts.equals("yes")) {
+                query.append(" AND p.commentCollection.size > 0");
+            } else if (cmnts.equals("no")) {
+                query.append(" AND p.commentCollection.size = 0");
+            }
+        }
+        
         projectList = DB.getInstance().createQuery(query.toString()).getResultList();
         return "index";
     }
