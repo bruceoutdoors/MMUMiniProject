@@ -45,6 +45,7 @@
                     </div>
                 </div>
                 <input name="_method" type="hidden" value="put" />
+                <button onclick="window.history.back();">Go Back</button>
                 <button formmethod="post" type="submit" class="btn btn-primary">Submit</button>
 
                 <script>

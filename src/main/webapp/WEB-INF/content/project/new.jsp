@@ -78,6 +78,7 @@
                                rows="10" cols="80" required></textarea>
                 </div>
             </div>
+            <button onclick="window.history.back();">Go Back</button>
             <input name="_method" type="hidden" value="put" />
             <button formmethod="post" type="submit" class="btn btn-primary">Submit</button>
 

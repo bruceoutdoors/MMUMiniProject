@@ -35,7 +35,7 @@
 
                 </li>
             </ul>
-            <h3><a href="${pageContext.request.contextPath}/project">Back</a></h3>
+            <button onclick="window.history.back();">Go Back</button>
             <h3><a href="${pageContext.request.contextPath}/project/<s:property value="id" />/edit">Edit</a><i class="fa fa-pencil-square-o"></i></h3>
             <form action="${pageContext.request.contextPath}/project/<s:property value="id" />">
                 <input name="_method" type="hidden" value="delete" />
