@@ -165,7 +165,7 @@ public class ProjectAction extends ActionSupport {
                 .createNamedQuery("Lecturer.findByUserId")
                 .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
                 .getSingleResult());
-        p.setProjectActive(request.getParameter("project.projectActive") != null ? true : false);
+        p.setProjectActive((request.getParameter("project.projectActive") != null));
 
         // file upload
         if (file != null) {
@@ -216,7 +216,7 @@ public class ProjectAction extends ActionSupport {
                                     .getSingleResult());
                         }
                     }
-                    p.setProjectActive(request.getParameter("project.projectActive") != null ? true : false);
+                    p.setProjectActive((request.getParameter("project.projectActive") != null));
                 }
             });
         } catch (NoResultException ex) {
