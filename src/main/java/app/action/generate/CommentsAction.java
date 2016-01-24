@@ -14,6 +14,7 @@ import core.DB;
 import io.codearte.jfairy.Fairy;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -32,6 +33,10 @@ public class CommentsAction extends ActionSupport {
 
         for (int i = 0; i < 25; i++) {
             Comment c = new Comment();
+            DateTime commentDate = fairy.dateProducer().randomDateBetweenTwoDates(
+                    DateTime.now().minusWeeks(1),
+                    DateTime.now());
+            c.setDateCreated(commentDate.toDate());
             c.setUserId(users.get(ThreadLocalRandom.current().nextInt(0, users.size())));
             c.setProjectId(projects.get(ThreadLocalRandom.current().nextInt(0, projects.size())));
             c.setCommentDescription(fairy.textProducer().latinSentence());

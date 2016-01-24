@@ -67,7 +67,6 @@ public class ProjectsAction extends ActionSupport {
 
             if (duedate.isAfterNow()) {
                 String status = PROJECT_STATUS[ThreadLocalRandom.current().nextInt(2, 5)];
-                p.setProjectStatus(status);
 
                 DateTime subDate = fairy.dateProducer().randomDateBetweenTwoDates(
                         duedate.minusWeeks(1),
@@ -84,11 +83,15 @@ public class ProjectsAction extends ActionSupport {
                 }
             } else {
                 String status = PROJECT_STATUS[ThreadLocalRandom.current().nextInt(0, 2)];
-                p.setProjectStatus(status);
 
                 if (status.equals("ASSIGNED")) {
                     p.setStudentId(students.get(ThreadLocalRandom.current().nextInt(0, students.size())));
                 }
+            }
+            
+            // roughly 10% chance a project is inactive:
+            if (ThreadLocalRandom.current().nextInt(1, 11) == 5) {
+                p.setProjectActive(false);
             }
 
             DB.getInstance().persist(p);

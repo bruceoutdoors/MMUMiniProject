@@ -44,9 +44,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Project.findByDueDate", query = "SELECT p FROM Project p WHERE p.dueDate = :dueDate"),
     @NamedQuery(name = "Project.findBySubDate", query = "SELECT p FROM Project p WHERE p.subDate = :subDate"),
     @NamedQuery(name = "Project.findByProjectDescription", query = "SELECT p FROM Project p WHERE p.projectDescription = :projectDescription"),
-    @NamedQuery(name = "Project.findByProjectStatus", query = "SELECT p FROM Project p WHERE p.projectStatus = :projectStatus"),
     @NamedQuery(name = "Project.findByEvaComment", query = "SELECT p FROM Project p WHERE p.evaComment = :evaComment")})
 public class Project implements Serializable {
+
+    @Column(name = "project_active")
+    private Boolean projectActive = true;
 
     @Size(max = 300)
     @Column(name = "project_file")
@@ -82,9 +84,6 @@ public class Project implements Serializable {
     private Date subDate;
     @Column(name = "project_description")
     private String projectDescription;
-    @Size(max = 15)
-    @Column(name = "project_status")
-    private String projectStatus;
     @Column(name = "eva_comment")
     private String evaComment;
     @JoinColumn(name = "lecturer_id", referencedColumnName = "user_id")
@@ -95,6 +94,8 @@ public class Project implements Serializable {
     private Student studentId;
 
     public static enum status {
+        ACTIVE,
+        INACTIVE,
         UNASSIGNED,
         ASSIGNED,
         SUBMITTED, 
@@ -163,14 +164,6 @@ public class Project implements Serializable {
 
     public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
-    }
-
-    public String getProjectStatus() {
-        return projectStatus;
-    }
-
-    public void setProjectStatus(String projectStatus) {
-        this.projectStatus = projectStatus;
     }
 
     public String getEvaComment() {
@@ -245,6 +238,14 @@ public class Project implements Serializable {
 
     public void setProjectFile(String projectFile) {
         this.projectFile = projectFile;
+    }
+
+    public Boolean getProjectActive() {
+        return projectActive;
+    }
+
+    public void setProjectActive(Boolean projectActive) {
+        this.projectActive = projectActive;
     }
 
 }
