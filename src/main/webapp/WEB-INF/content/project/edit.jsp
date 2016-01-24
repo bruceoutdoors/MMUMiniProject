@@ -41,6 +41,18 @@
                         </s:iterator>
                     </select>
                 </div>
+                <div class="form-group col-sm-12">
+                    <label for="sel1">Assigned Student:</label>
+                    <select class="form-control" name="project.student">
+                        <option value="" />** unassigned **</option>
+                        <s:iterator value="students">
+                            <option value="<s:property value="top.userId" />"
+                                    <s:if test="%{project.studentId.userId == top.userId}">
+                                        selected 
+                                    </s:if> ><s:property value="top.userName" /></option>
+                        </s:iterator>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="datetimepicker1" class="control-label col-sm-1">Due Date</label>
                     <div class='input-group date col-sm-3' id='datetimepicker1'>

@@ -9,6 +9,7 @@ import app.model.Comment;
 import app.model.Lecturer;
 import app.model.Project;
 import app.model.Specialization;
+import app.model.Student;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
 import java.io.File;
@@ -43,6 +44,7 @@ public class ProjectAction extends ActionSupport {
     public List<Lecturer> lecturers;
     public List<Specialization> specs;
     public List<Comment> comments;
+    public List<Student> students;
     public Project project;
     public int id;
     public Date today = new Date();
@@ -97,6 +99,15 @@ public class ProjectAction extends ActionSupport {
             }
         }
 
+        String assigned = request.getParameter("assigned");
+        if (assigned != null && !assigned.isEmpty()) {
+            if (assigned.equals("yes")) {
+                query.append(" AND p.studentId IS NOT NULL");
+            } else if (assigned.equals("no")) {
+                query.append(" AND p.studentId IS NULL");
+            }
+        }
+
         projectList = DB.getInstance().createQuery(query.toString()).getResultList();
         return "index";
     }
@@ -128,6 +139,7 @@ public class ProjectAction extends ActionSupport {
 
         lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
         specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
+        students = DB.getInstance().createNamedQuery("Student.findAll").getResultList();
 
         return "edit";
     }
@@ -192,6 +204,18 @@ public class ProjectAction extends ActionSupport {
                             .createNamedQuery("Lecturer.findByUserId")
                             .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
                             .getSingleResult());
+                    String studentId = request.getParameter("project.student");
+
+                    if (studentId != null) {
+                        if (studentId.isEmpty()) {
+                            p.setStudentId(null);
+                        } else {
+                            p.setStudentId((Student) DB.getInstance()
+                                    .createNamedQuery("Student.findByUserId")
+                                    .setParameter("userId", Integer.parseInt(studentId))
+                                    .getSingleResult());
+                        }
+                    }
                     p.setProjectActive(request.getParameter("project.projectActive") != null ? true : false);
                 }
             });

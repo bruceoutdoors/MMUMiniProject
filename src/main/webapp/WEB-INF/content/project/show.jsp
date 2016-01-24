@@ -13,6 +13,12 @@
             <ul>
                 <li>Id: <s:property value="project.projectId" /></li>
                 <li>Project Active: <s:property value="project.projectActive" /></li>
+                    <s:if test="%{project.studentId != null}">
+                    <li>Assigned Student: <s:property value="project.studentId.userName" /></li>
+                    </s:if> 
+                    <s:else>
+                    <li>* No student assigned *</li>
+                    </s:else>
                 <li>Project Specialization: <s:property value="project.specId.specName" /></li>
                 <li>Grade: <s:property value="project.projectGrade" /></li>
                 <li>Start date: <s:date name="project.startDate" format="dd-MM-yyyy hh:mma" /></li>

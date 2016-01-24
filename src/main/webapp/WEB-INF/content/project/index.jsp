@@ -26,7 +26,9 @@
                                 <s:if test="%{#parameters.spec[0] == top.specId}">
                                     selected 
                                 </s:if>
-                                value="<s:property value="top.specId" />"><s:property value="top.specName" /></option>
+                                value="<s:property value="top.specId" />">
+                                <s:property value="top.specName" />
+                            </option>
                         </s:iterator>
                     </select>
                 </div>
@@ -39,7 +41,9 @@
                                 <s:if test="%{#parameters.lecturer[0] == top.userId}">
                                     selected 
                                 </s:if>
-                                value="<s:property value="top.userId" />"><s:property value="top.userName" /></option>
+                                value="<s:property value="top.userId" />">
+                                <s:property value="top.userName" />
+                            </option>
                         </s:iterator>
                     </select>
                 </div>
@@ -52,8 +56,8 @@
                                     selected 
                                 </s:if> >Active Projects Only</option> 
                         <option value="no"<s:if test="%{#parameters.active[0] == 'no'}">
-                                    selected 
-                                </s:if> >Inactive Projects Only</option>
+                                selected 
+                            </s:if> >Inactive Projects Only</option>
                     </select>
 
                 </div>
@@ -66,8 +70,22 @@
                                     selected 
                                 </s:if> >Project with comments</option> 
                         <option value="no"<s:if test="%{#parameters.cmnts[0] == 'no'}">
+                                selected 
+                            </s:if> >Project with no comments</option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-12">
+                    Project Assigned to student?  
+                    <select class="form-control" name="assigned">
+                        <option value="" selected>Not important</option>
+                        <option value="yes"
+                                <s:if test="%{#parameters.assigned[0] == 'yes'}">
                                     selected 
-                                </s:if> >Project with no comments</option>
+                                </s:if> >Assigned</option> 
+                        <option value="no"<s:if test="%{#parameters.assigned[0] == 'no'}">
+                                selected 
+                            </s:if> >Unassigned</option>
                     </select>
 
                 </div>
@@ -92,7 +110,14 @@
                                 <li>Project Active: <s:property value="top.projectActive" /></li>
                                 <li>Specialization: <s:property value="top.specId.specName" /></li>
                                 <li>Lecturer: <s:property value="top.lecturerId.userName" /></li>
+                                    <s:if test="%{top.studentId != null}">
+                                    <li>Assigned Student: <s:property value="top.studentId.userName" /></li>
+                                    </s:if> 
+                                    <s:else>
+                                    <li>* No student assigned *</li>
+                                    </s:else>
                             </ul>
+                            <br/>
                         </li>
                     </s:iterator>
                 </ol>
