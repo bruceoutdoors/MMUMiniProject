@@ -5,6 +5,7 @@
  */
 package app.action;
 
+import app.model.Comment;
 import app.model.Lecturer;
 import app.model.Project;
 import app.model.Specialization;
@@ -41,6 +42,7 @@ public class ProjectAction extends ActionSupport {
     public List<Project> projectList;
     public List<Lecturer> lecturers;
     public List<Specialization> specs;
+    public List<Comment> comments;
     public Project project;
     public int id;
     public Date today = new Date();
@@ -53,9 +55,31 @@ public class ProjectAction extends ActionSupport {
     public final String DATE_FORMAT = "dd-MM-yyyy hh:mma";
 
     public String index() {
-        projectList = DB.getInstance()
-                .createNamedQuery("Project.findAll")
-                .getResultList();
+        lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
+        specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
+        StringBuilder query = new StringBuilder();
+        
+        // 1 = 1 is just to allow me to append AND's. 
+        query.append("SELECT p FROM Project p WHERE 1 = 1");
+        
+        HttpServletRequest request = ServletActionContext.getRequest();
+        
+        String title = request.getParameter("title");
+        if (title != null && !title.isEmpty()) {
+            query.append(" AND p.projectTitle LIKE '%").append(title).append("%'");
+        }
+        
+        String spec = request.getParameter("spec");
+        if (spec != null && !spec.isEmpty()) {
+            query.append(" AND p.specId = ").append(spec);
+        }
+        
+        String lecturer = request.getParameter("lecturer");
+        if (lecturer != null && !lecturer.isEmpty()) {
+            query.append(" AND p.lecturerId = ").append(lecturer);
+        }
+        
+        projectList = DB.getInstance().createQuery(query.toString()).getResultList();
         return "index";
     }
 
@@ -67,6 +91,10 @@ public class ProjectAction extends ActionSupport {
             alertType = "warning";
             return index();
         }
+        
+        comments = DB.getInstance()
+                .createQuery("SELECT c FROM Comment c WHERE c.projectId = " + Integer.toString(id)
+                + " ORDER BY c.dateCreated DESC").getResultList();
 
         return "show";
     }
@@ -104,7 +132,6 @@ public class ProjectAction extends ActionSupport {
                 .createNamedQuery("Lecturer.findByUserId")
                 .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
                 .getSingleResult());
-        p.setProjectStatus(Project.status.UNASSIGNED.name());
 
         // file upload
         if (file != null) {
@@ -162,7 +189,7 @@ public class ProjectAction extends ActionSupport {
         // the success message doesn't actually show up.
         // I either have the URL stay the or redirect to home,
         // and though it's more intuitive to have it redirect home
-        // I find it kinda FUCKING retarded that I can't have both
+        // I find it kinda sad that I can't have both ):
         alertMsg = "Successfully deleted \"" + title + "\"!";
         alertType = "success";
         return "home";

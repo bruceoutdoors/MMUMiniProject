@@ -42,6 +42,20 @@
                 <button  onclick="return confirm('Are you sure you want to delete?')" 
                          formmethod="post" type="submit" class="btn btn-danger">Delete</button>
             </form>
+            
+            <h3>Comments</h3>
+            <ol>
+                <s:iterator value="comments">
+                <li>
+                    <ul>
+                        <li>Date Commented: <s:date name="top.dateCreated" format="dd-MM-yyyy hh:mma" /></li>
+                        <li>Name: <s:property value="top.userId.userName" /></li>
+                        <li>Content: <s:property value="top.commentDescription" /></li>
+                    </ul>
+                </li>
+                <br/>
+                </s:iterator>
+            </ol>
         </div>
         <jsp:include page="/WEB-INF/layouts/footer.jsp" />
     </body>
