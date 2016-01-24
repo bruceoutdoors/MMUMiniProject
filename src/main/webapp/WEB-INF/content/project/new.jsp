@@ -35,14 +35,6 @@
                     </s:iterator>
                 </select>
             </div>
-            <!--                <div class="form-group col-sm-12">
-                                <label for="sel1">Select Status:</label>
-                                <select class="form-control" name="project.status">
-            <s:iterator value="@app.model.Project$status@values()">
-            <option><s:property/></option>
-            </s:iterator>
-        </select>
-    </div>-->
             <div class="form-group col-sm-12">
                 <label>Upload Project PDF File: </label>
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
@@ -77,6 +69,10 @@
                     <textarea  id="editor1" name="project.projectDescription" class="form-control" 
                                rows="10" cols="80" required></textarea>
                 </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label for="sel1">Project active:</label>
+                <input type="checkbox" name="project.projectActive" checked>
             </div>
             <button onclick="window.history.back();">Go Back</button>
             <input name="_method" type="hidden" value="put" />

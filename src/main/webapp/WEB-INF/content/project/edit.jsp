@@ -19,6 +19,28 @@
                                type="text" value="<s:property value="project.projectTitle"/>">
                     </div>
                 </div>
+                <div class="form-group col-sm-12">
+                    <label for="sel1">Select Specialization:</label>
+                    <select class="form-control" name="project.spec">
+                        <s:iterator value="specs">
+                            <option value="<s:property value="top.specId" />"
+                                    <s:if test="%{project.specId.specId == top.specId}">
+                                        selected 
+                                    </s:if> ><s:property value="top.specName" /></option>
+                        </s:iterator>
+                    </select>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="sel1">(Admin Only) Select Lecturer:</label>
+                    <select class="form-control" name="project.lecturer">
+                        <s:iterator value="lecturers">
+                            <option value="<s:property value="top.userId" />"
+                                    <s:if test="%{project.lecturerId.userId == top.userId}">
+                                        selected 
+                                    </s:if> ><s:property value="top.userName" /></option>
+                        </s:iterator>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="datetimepicker1" class="control-label col-sm-1">Due Date</label>
                     <div class='input-group date col-sm-3' id='datetimepicker1'>
@@ -43,6 +65,13 @@
                         <textarea  id="editor1" name="project.projectDescription" class="form-control" 
                                    rows="10" cols="80" required><s:property value="project.projectDescription"/></textarea>
                     </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="sel1">Project active:</label>
+                    <input type="checkbox" name="project.projectActive" 
+                           <s:if test="%{project.projectActive}">
+                               checked
+                           </s:if> >
                 </div>
                 <input name="_method" type="hidden" value="put" />
                 <button onclick="window.history.back();">Go Back</button>

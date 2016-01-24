@@ -12,6 +12,8 @@
             <h1><s:property value="project.projectTitle" /></h1>
             <ul>
                 <li>Id: <s:property value="project.projectId" /></li>
+                <li>Project Active: <s:property value="project.projectActive" /></li>
+                <li>Project Specialization: <s:property value="project.specId.specName" /></li>
                 <li>Grade: <s:property value="project.projectGrade" /></li>
                 <li>Start date: <s:date name="project.startDate" format="dd-MM-yyyy hh:mma" /></li>
                 <li>Due date: <s:date name="project.dueDate"  nice="true"/></li>
@@ -25,7 +27,7 @@
                     </s:if>
                     <s:else>
                     <li>No Project PDF File had been uploaded</li>
-                </s:else>
+                    </s:else>
                 <li>Description:  
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -35,25 +37,26 @@
 
                 </li>
             </ul>
-            <button onclick="window.history.back();">Go Back</button>
+            <h3><a href="${pageContext.request.contextPath}/project">Back</a></h3>
+
             <h3><a href="${pageContext.request.contextPath}/project/<s:property value="id" />/edit">Edit</a><i class="fa fa-pencil-square-o"></i></h3>
             <form action="${pageContext.request.contextPath}/project/<s:property value="id" />">
                 <input name="_method" type="hidden" value="delete" />
                 <button  onclick="return confirm('Are you sure you want to delete?')" 
                          formmethod="post" type="submit" class="btn btn-danger">Delete</button>
             </form>
-            
-            <h3>Comments</h3>
+
+            <h3>Comments (<s:property value="comments.size" />)</h3>
             <ol>
                 <s:iterator value="comments">
-                <li>
-                    <ul>
-                        <li>Date Commented: <s:date name="top.dateCreated" format="dd-MM-yyyy hh:mma" /></li>
-                        <li>Name: <s:property value="top.userId.userName" /></li>
-                        <li>Content: <s:property value="top.commentDescription" /></li>
-                    </ul>
-                </li>
-                <br/>
+                    <li>
+                        <ul>
+                            <li>Date Commented: <s:date name="top.dateCreated" format="dd-MM-yyyy hh:mma" /></li>
+                            <li>Name: <s:property value="top.userId.userName" /></li>
+                            <li>Content: <s:property value="top.commentDescription" /></li>
+                        </ul>
+                    </li>
+                    <br/>
                 </s:iterator>
             </ol>
         </div>

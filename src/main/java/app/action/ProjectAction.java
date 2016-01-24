@@ -58,27 +58,27 @@ public class ProjectAction extends ActionSupport {
         lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
         specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
         StringBuilder query = new StringBuilder();
-        
+
         // 1 = 1 is just to allow me to append AND's. 
         query.append("SELECT p FROM Project p WHERE 1 = 1");
-        
+
         HttpServletRequest request = ServletActionContext.getRequest();
-        
+
         String title = request.getParameter("title");
         if (title != null && !title.isEmpty()) {
             query.append(" AND p.projectTitle LIKE '%").append(title).append("%'");
         }
-        
+
         String spec = request.getParameter("spec");
         if (spec != null && !spec.isEmpty()) {
             query.append(" AND p.specId = ").append(spec);
         }
-        
+
         String lecturer = request.getParameter("lecturer");
         if (lecturer != null && !lecturer.isEmpty()) {
             query.append(" AND p.lecturerId = ").append(lecturer);
         }
-        
+
         String active = request.getParameter("active");
         if (active != null && !active.isEmpty()) {
             if (active.equals("yes")) {
@@ -87,7 +87,7 @@ public class ProjectAction extends ActionSupport {
                 query.append(" AND p.projectActive = false");
             }
         }
-        
+
         String cmnts = request.getParameter("cmnts");
         if (cmnts != null && !cmnts.isEmpty()) {
             if (cmnts.equals("yes")) {
@@ -96,7 +96,7 @@ public class ProjectAction extends ActionSupport {
                 query.append(" AND p.commentCollection.size = 0");
             }
         }
-        
+
         projectList = DB.getInstance().createQuery(query.toString()).getResultList();
         return "index";
     }
@@ -109,10 +109,10 @@ public class ProjectAction extends ActionSupport {
             alertType = "warning";
             return index();
         }
-        
+
         comments = DB.getInstance()
                 .createQuery("SELECT c FROM Comment c WHERE c.projectId = " + Integer.toString(id)
-                + " ORDER BY c.dateCreated DESC").getResultList();
+                        + " ORDER BY c.dateCreated DESC").getResultList();
 
         return "show";
     }
@@ -125,6 +125,9 @@ public class ProjectAction extends ActionSupport {
             alertType = "warning";
             return index();
         }
+
+        lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
+        specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
 
         return "edit";
     }
@@ -150,6 +153,7 @@ public class ProjectAction extends ActionSupport {
                 .createNamedQuery("Lecturer.findByUserId")
                 .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
                 .getSingleResult());
+        p.setProjectActive(request.getParameter("project.projectActive") != null ? true : false);
 
         // file upload
         if (file != null) {
@@ -161,7 +165,7 @@ public class ProjectAction extends ActionSupport {
             FileUtils.copyFile(file, destFile);
             p.setProjectFile(uploadDir + filename);
         }
-        
+
         DB.getInstance().persist(p);
 
         alertMsg = "Created project: " + p.getProjectTitle();
@@ -180,6 +184,15 @@ public class ProjectAction extends ActionSupport {
                     p.setDueDate(new SimpleDateFormat(DATE_FORMAT)
                             .parse(request.getParameter("project.dueDate")));
                     p.setProjectDescription(request.getParameter("project.projectDescription"));
+                    p.setSpecId((Specialization) DB.getInstance()
+                            .createNamedQuery("Specialization.findBySpecId")
+                            .setParameter("specId", Integer.parseInt(request.getParameter("project.spec")))
+                            .getSingleResult());
+                    p.setLecturerId((Lecturer) DB.getInstance()
+                            .createNamedQuery("Lecturer.findByUserId")
+                            .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
+                            .getSingleResult());
+                    p.setProjectActive(request.getParameter("project.projectActive") != null ? true : false);
                 }
             });
         } catch (NoResultException ex) {
