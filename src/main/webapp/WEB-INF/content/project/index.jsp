@@ -5,6 +5,9 @@
     <head>
         <title>Projects</title>
         <jsp:include page="/WEB-INF/layouts/head.jsp" />
+        <style type="text/css">
+            .noMargin { margin-top: 0px !important; margin-btm: 0px !important; }
+        </style>
     </head>
     <body>
         <jsp:include page="/WEB-INF/layouts/header.jsp" />
@@ -94,33 +97,50 @@
                 </div>
             </form>
 
-            <div class="form-group col-sm-12">
+            <div class="container col-sm-12">
                 <p>A total of <b><s:property value="projectList.size" /></b> projects found:</p>
-                <ol>
-                    <s:iterator value="projectList">
-                        <li>
-                            <ul>
-                                <li>Id: <s:property value="top.projectId" /></li>
-                                <li><a href="${pageContext.request.contextPath}/project/<s:property value="top.projectId" />">Title: <s:property value="top.projectTitle" /></a></li>
-                                <li>Grade: <s:property value="top.projectGrade" /></li>
-                                <li>Start date: <s:date name="top.startDate" format="dd-MM-yyyy hh:mma" /></li>
-                                <li>Due date: <s:date name="top.dueDate"  nice="true"/></li>
-                                <li>Submission Date: <s:date name="top.subDate" format="dd-MM-yyyy hh:mma" /></li>
-                                <li>Comment count: <s:property value="top.commentList.size" /></li>
-                                <li>Project Active: <s:property value="top.projectActive" /></li>
-                                <li>Specialization: <s:property value="top.specId.specName" /></li>
-                                <li>Lecturer: <s:property value="top.lecturerId.userName" /></li>
+                <table class="table table-striped">
+                    <tbody>
+                        <s:iterator value="projectList">
+                        <tr>
+                            <td>
+                                <div class="row noMargin">
+                                    <h3 class="col-sm-10 noMargin"><a href="${pageContext.request.contextPath}/project/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h3>
+                                    <h5 class="col-sm-2 noMargin text-right">[ASSIGNED]</h5>
+                                </div>
+                                <div class="row noMargin">
+                                    <h5 class="col-sm-12 noMargin"><small>Specialization: <s:property value="top.specId.specName" /></small></h6>
+                                </div>
+                                <br/>
+                                <div class="row noMargin">
+                                    <h4 class="col-sm-12 noMargin"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>   <small>by <s:property value="top.lecturerId.userName" />, </small>
                                     <s:if test="%{top.studentId != null}">
-                                    <li>Assigned Student: <s:property value="top.studentId.userName" /></li>
+                                        <small>assigned to <s:property value="top.studentId.userName" /></small>
                                     </s:if> 
                                     <s:else>
-                                    <li>* No student assigned *</li>
+                                        <small>no student assigned</small>
                                     </s:else>
-                            </ul>
-                            <br/>
-                        </li>
+                                    &nbsp; &nbsp; &nbsp; &nbsp; <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>   <small><s:date name="top.startDate" format="dd-MM-yyyy hh:mma" /></small> 
+                                    &nbsp; <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> &nbsp; <small><s:date name="top.dueDate"  format="dd-MM-yyyy hh:mma" /></small></h4>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <h5 class="col-sm-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                        Duis dapibus interdum felis, at luctus dui venenatis commodo. 
+                                        Pellentesque eleifend eleifend interdum. Nullam blandit tempus lacus, 
+                                        eu semper nibh ultricies ultricies. Vestibulum elementum, sapien nec 
+                                        vestibulum congue, nulla odio tincidunt massa, posuere pretium magna 
+                                        lacus non metus. Sed quis arcu sit amet nulla tempus ornare. Fusce 
+                                        facilisis est vitae urna lobortis...</h5>
+                                </div>
+                                <br/>
+                                <div class ="row">
+                                    <h4 class="col-sm-12"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>   <small><s:property value="top.commentList.size" /> comment(s)</small></h4>
+                                </div>
+                                </td>
+                            </tr>
                     </s:iterator>
-                </ol>
+                    </tbody>
             </div>
         </div>
         <jsp:include page="/WEB-INF/layouts/footer.jsp" />
