@@ -150,7 +150,7 @@ public class ProjectAction extends ActionSupport {
             List<Project> assignedProjects = new ArrayList<Project>();
             List<Project> pl = s.getProjectList();
             for (Project p : pl) {
-                if (p.getSubDate() == null) assignedProjects.add(p);
+                if (p.isComplete()) assignedProjects.add(p);
             }
             
             if (assignedProjects.isEmpty()) students.add(s);
