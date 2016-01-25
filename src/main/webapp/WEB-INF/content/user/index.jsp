@@ -10,6 +10,13 @@
     <head>
         <title>Edit Account</title>
         <jsp:include page="/WEB-INF/layouts/head.jsp" />
+        <style>
+            #fixedbutton1 { position: fixed; bottom: 20px; right: 95px; 
+            }
+
+            #fixedbutton2 { position: fixed; bottom: 20px; right: 20px;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
