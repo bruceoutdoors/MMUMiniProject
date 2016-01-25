@@ -106,7 +106,7 @@
                             <td>
                                 <div class="row noMargin">
                                     <h3 class="col-sm-10 noMargin"><a href="${pageContext.request.contextPath}/project/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h3>
-                                    <h5 class="col-sm-2 noMargin text-right">[ASSIGNED]</h5>
+                                    <h5 class="col-sm-2 noMargin text-right"><b>[<s:property value="top.status" />]</b></h5>
                                 </div>
                                 <div class="row noMargin">
                                     <h5 class="col-sm-12 noMargin"><small>Specialization: <s:property value="top.specId.specName" /></small></h6>

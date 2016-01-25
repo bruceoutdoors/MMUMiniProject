@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -90,17 +91,44 @@ public class Project implements Serializable {
     @ManyToOne(optional = false)
     private Lecturer lecturerId;
     @JoinColumn(name = "student_id", referencedColumnName = "user_id")
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     private Student studentId;
 
-    public static enum status {
-        ACTIVE,
+    public static enum statusEnum {
         INACTIVE,
         UNASSIGNED,
         ASSIGNED,
         SUBMITTED, 
         EVALUATED,
         OVERDUED
+    }
+    
+    public statusEnum getStatus() {
+        if (projectActive == false) {
+            return statusEnum.INACTIVE;
+        }
+        
+        if (studentId == null) {
+            return statusEnum.UNASSIGNED;
+        }
+        
+        if (subDate != null) {
+            if (projectGrade != null) {
+                return statusEnum.EVALUATED;
+            }
+            
+            return statusEnum.SUBMITTED;
+        }
+        
+        if (dueDate.before(new Date())) {
+            return statusEnum.OVERDUED;
+        }
+        
+        return statusEnum.ASSIGNED;
+    }
+    
+    public Boolean isComplete() {
+        return subDate != null;
     }
 
     public Project() {
