@@ -141,6 +141,7 @@
                             </tr>
                     </s:iterator>
                     </tbody>
+                </table>
             </div>
         </div>
         <jsp:include page="/WEB-INF/layouts/footer.jsp" />
