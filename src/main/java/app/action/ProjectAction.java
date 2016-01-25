@@ -15,6 +15,7 @@ import core.DB;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -139,7 +140,21 @@ public class ProjectAction extends ActionSupport {
 
         lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
         specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
-        students = DB.getInstance().createNamedQuery("Student.findAll").getResultList();
+        students = new ArrayList<Student>();
+ 
+        List<Student> allStudents = DB.getInstance()
+                .createQuery("SELECT s FROM Student s")
+                .getResultList();
+
+        for (Student s : allStudents) {
+            List<Project> assignedProjects = new ArrayList<Project>();
+            List<Project> pl = s.getProjectList();
+            for (Project p : pl) {
+                if (p.getSubDate() == null) assignedProjects.add(p);
+            }
+            
+            if (assignedProjects.isEmpty()) students.add(s);
+        }
 
         return "edit";
     }
