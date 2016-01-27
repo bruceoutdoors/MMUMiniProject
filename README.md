@@ -19,6 +19,7 @@ You'll need Netbeans, Apache Tomcat and MySQL. Tomcat and MySQL is bundled with 
 * Dependencies are handled by Maven; to add new libraries, look for them in http://mvnrepository.com/ and add the dependency into `pom.xml`. 
 * If `persistence.xml`, `web.xml`, or the `MigrateDb.java`, is not set properly, OpenShift doesn't give much indication aside a `Failed deployments: ./ROOT.war` error. 
 * File uploads only work locally as of this writing.
+* You cannot have a REST controller and a package name of the same name in the same parent package.
 
 ## Tips
 

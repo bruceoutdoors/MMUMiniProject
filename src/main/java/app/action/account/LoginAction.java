@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.action.user;
+package app.action.account;
 
 import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,7 +26,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
     HttpServletRequest request;
 
     public String index() {
-        return INPUT;
+        return "login";
     }
 
     // POST to login
@@ -42,7 +42,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 
         incorrectCredentials = "";
 
-        return INPUT;
+        return "login";
     }
 
     @Override

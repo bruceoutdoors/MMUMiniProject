@@ -23,29 +23,27 @@
         <div class="container">
             <jsp:include page="/WEB-INF/layouts/header.jsp" />
             <h1><small>Edit Account</small></h1>
-            <table class="table table-hover, table-striped">
-                <thead>
-                    <tr style="text-align:center">
-                        <td>ID</td>
-                        <td>Name</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="text-align:center">
-                        <td> <p><s:property value="user.userId" /></p></td>
-                        <td> <p><s:property value="user.userName" /></p></td>
-                    </tr>
-                </tbody>
-            </table>
-            <form class="form-horizontal" action="${pageContext.request.contextPath}/user/<s:property value="id"/>" role="form"> 
+            <form class="form-horizontal" action="${pageContext.request.contextPath}/user" role="form"> 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="newpass">Change Password:</label>
+                    <label class="control-label col-sm-2" for="number">Id:</label>
+                    <div class="col-sm-10">
+                        <input  name="user.userId" type="tel" class="form-control" id="number" placeholder="Enter Id">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="number">Username:</label>
+                    <div class="col-sm-10">
+                        <input  name="user.userName" type="tel" class="form-control" id="number" placeholder="Enter Username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="newpass">Password:</label>
                     <div class="col-sm-10">
                         <input name="user.userPassword" type="password" class="form-control" id="newpass" placeholder="Enter New Password">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="conpass">Confirm Changed Password:</label>
+                    <label class="control-label col-sm-2" for="conpass">Confirm Password:</label>
                     <div class="col-sm-10">
                         <input name="user.confirmPassword" type="password" class="form-control" id="conpass" placeholder="Confirm New Password">
                     </div>
@@ -53,13 +51,13 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="email">E-mail:</label>
                     <div class="col-sm-10">
-                        <input name="user.userEmail" value="<s:property value="user.userEmail" />" type="email" class="form-control" id="email" placeholder="Enter E-mail">
+                        <input name="user.userEmail" type="email" class="form-control" id="email" placeholder="Enter E-mail">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="number">Contact Number:</label>
                     <div class="col-sm-10">
-                        <input  name="user.userTel" value="<s:property value="user.userTel" />" type="tel" class="form-control" id="number" placeholder="Enter Contact Number">
+                        <input  name="user.userTel" type="tel" class="form-control" id="number" placeholder="Enter Contact Number">
                     </div>
                 </div>
                 <div class="form-group">
@@ -80,16 +78,10 @@
                 <!-- Account status only for Admin -->
                 <h3><small>Account Status</small></h3>
                 <div class="radio">
-                    <label><input type="radio" name="status" value="on"
-                                  <s:if test="%{user.userActive == true}">
-                                      checked 
-                                  </s:if> >Active</label>
+                    <label><input type="radio" name="status" value="on" checked>Active</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio" name="status" value="off"
-                                  <s:if test="%{user.userActive == false}">
-                                      checked 
-                                  </s:if> >Inactive</label>
+                    <label><input type="radio" name="status" value="off">Inactive</label>
                 </div>
                 <br>
                 <input name="_method" type="hidden" value="put" />

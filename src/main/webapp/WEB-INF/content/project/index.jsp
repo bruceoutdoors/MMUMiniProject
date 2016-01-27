@@ -133,13 +133,7 @@
                                 </div>
                                 <br/>
                                 <div class="row">
-                                    <h5 class="col-sm-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                        Duis dapibus interdum felis, at luctus dui venenatis commodo. 
-                                        Pellentesque eleifend eleifend interdum. Nullam blandit tempus lacus, 
-                                        eu semper nibh ultricies ultricies. Vestibulum elementum, sapien nec 
-                                        vestibulum congue, nulla odio tincidunt massa, posuere pretium magna 
-                                        lacus non metus. Sed quis arcu sit amet nulla tempus ornare. Fusce 
-                                        facilisis est vitae urna lobortis...</h5>
+                                    <h5 class="col-sm-12"><s:property value="top.shortDescription" /></h5>
                                 </div>
                                 <br/>
                                 <div class ="row">
