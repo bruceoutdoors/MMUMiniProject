@@ -18,6 +18,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -119,7 +120,7 @@ public class ProjectAction extends ActionSupport {
                 query.append(" AND p.studentId IS NULL");
             }
         }
-        
+
         String completed = request.getParameter("completed");
         if (completed != null && !completed.isEmpty()) {
             if (completed.equals("yes")) {
@@ -170,7 +171,7 @@ public class ProjectAction extends ActionSupport {
             List<Project> assignedProjects = new ArrayList<Project>();
             List<Project> pl = s.getProjectList();
             for (Project p : pl) {
-                if (p.isComplete()) {
+                if (p.isComplete() && p.getSubDate() == null) {
                     assignedProjects.add(p);
                 }
             }
@@ -179,6 +180,13 @@ public class ProjectAction extends ActionSupport {
                 students.add(s);
             }
         }
+
+        students.sort(new Comparator<Student>() {
+            @Override
+            public int compare(Student a, Student b) {
+                return a.getUserName().compareTo(b.getUserName());
+            }
+        });
 
         return "edit";
     }
@@ -234,6 +242,14 @@ public class ProjectAction extends ActionSupport {
                     p.setProjectTitle(request.getParameter("project.projectTitle"));
                     p.setDueDate(new SimpleDateFormat(DATE_FORMAT)
                             .parse(request.getParameter("project.dueDate")));
+
+                    String subDate = request.getParameter("project.subDate");
+                    if (subDate != null && !subDate.isEmpty()) {
+                        p.setSubDate(new SimpleDateFormat(DATE_FORMAT).parse(subDate));
+                    } else {
+                        p.setSubDate(null);
+                    }
+
                     p.setProjectDescription(request.getParameter("project.projectDescription"));
                     p.setSpecId((Specialization) DB.getInstance()
                             .createNamedQuery("Specialization.findBySpecId")

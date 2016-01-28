@@ -55,20 +55,8 @@
                         </s:iterator>
                     </select>
                 </div>
-                <div class="form-group col-sm-12">
-                    <label for="sel1">Project Grade:</label>
-                    <select class="form-control" name="project.projectGrade">
-                        <option value="" selected>** UNGRADED **</option>
-                        <s:iterator value="PROJECT_GRADE">
-                            <option value="<s:property value="top" />"
-                                    <s:if test="%{project.projectGrade == top}">
-                                        selected 
-                                    </s:if> ><s:property value="top" /></option>
-                        </s:iterator>
-                    </select>
-                </div>
                 <div class="form-group">
-                    <label for="datetimepicker1" class="control-label col-sm-1">Due Date</label>
+                    <label for="datetimepicker1" class="control-label col-sm-2">Due Date</label>
                     <div class='input-group date col-sm-3' id='datetimepicker1'>
                         <input name="project.dueDate" type='text' class="form-control" value="<s:date name="project.dueDate" format="dd-MM-yyyy hh:mma" />" />
                         <span class="input-group-addon">
@@ -83,6 +71,35 @@
                             });
                         });
                     </script>
+                </div>
+                <div class="form-group">
+                    <label for="datetimepicker1" class="control-label col-sm-2">Submission Date</label>
+                    <div class='input-group date col-sm-3' id='datetimepicker2'>
+                        <input name="project.subDate" type='text' class="form-control" value="<s:date name="project.subDate" format="dd-MM-yyyy hh:mma" />" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker2').datetimepicker({
+                                format: "D-MM-YYYY h:mmA"
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="sel1">Project Grade:</label>
+                    <select class="form-control" name="project.projectGrade">
+                        <option value="" selected>** UNGRADED **</option>
+                        <s:iterator value="PROJECT_GRADE">
+                            <option value="<s:property value="top" />"
+                                    <s:if test="%{project.projectGrade == top}">
+                                        selected 
+                                    </s:if> ><s:property value="top" /></option>
+                        </s:iterator>
+                    </select>
                 </div>
 
                 <div class="form-group col-sm-12">
