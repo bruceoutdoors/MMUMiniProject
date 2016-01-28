@@ -107,6 +107,19 @@
 
                         </div>
                         <div class="form-group col-sm-12">
+                            <label for="sel1">Project Completed?  </label>
+                            <select class="form-control" name="completed">
+                                <option value="" selected>Not important</option>
+                                <option value="yes"
+                                        <s:if test="%{#parameters.completed[0] == 'yes'}">
+                                            selected 
+                                        </s:if> >Completed</option> 
+                                <option value="no"<s:if test="%{#parameters.completed[0] == 'no'}">
+                                        selected 
+                                    </s:if> >Not completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12">
                             <button type="submit" class="btn btn-primary col-sm-3">Submit</button>
                         </div>
                     </form>

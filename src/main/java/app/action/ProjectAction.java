@@ -119,6 +119,15 @@ public class ProjectAction extends ActionSupport {
                 query.append(" AND p.studentId IS NULL");
             }
         }
+        
+        String completed = request.getParameter("completed");
+        if (completed != null && !completed.isEmpty()) {
+            if (completed.equals("yes")) {
+                query.append(" AND p.subDate IS NOT NULL");
+            } else if (completed.equals("no")) {
+                query.append(" AND p.subDate IS NULL");
+            }
+        }
 
         projectList = DB.getInstance().createQuery(query.toString()).getResultList();
         return "index";
