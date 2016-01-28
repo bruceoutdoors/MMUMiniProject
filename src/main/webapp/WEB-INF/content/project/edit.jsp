@@ -38,7 +38,10 @@
                         <label for="sel1">(Admin Only) Select Lecturer:</label>
                         <select class="form-control" name="project.lecturer">
                             <s:iterator value="lecturers">
-                                <option value="<s:property value="top.userId" />"><s:property value="top.userName" /></option>
+                                <option value="<s:property value="top.userId" />"
+                                            <s:if test="%{project.lecturerId.userId == top.userId}">
+                                                selected
+                                            </s:if> /><s:property value="top.userName" /></option>
                             </s:iterator>
                         </select>
                     </div>

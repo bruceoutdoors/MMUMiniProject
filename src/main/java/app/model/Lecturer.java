@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @DiscriminatorValue("1")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Lecturer.findAll", query = "SELECT l FROM Lecturer l"),
+    @NamedQuery(name = "Lecturer.findAll", query = "SELECT l FROM Lecturer l ORDER BY l.userName"),
     @NamedQuery(name = "Lecturer.findByUserId", query = "SELECT l FROM Lecturer l WHERE l.userId = :userId")})
 public class Lecturer extends User  {
     
