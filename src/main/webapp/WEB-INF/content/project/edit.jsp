@@ -30,17 +30,19 @@
                         </s:iterator>
                     </select>
                 </div>
-                <div class="form-group col-sm-12">
-                    <label for="sel1">(Admin Only) Select Lecturer:</label>
-                    <select class="form-control" name="project.lecturer">
-                        <s:iterator value="lecturers">
-                            <option value="<s:property value="top.userId" />"
-                                    <s:if test="%{project.lecturerId.userId == top.userId}">
-                                        selected 
-                                    </s:if> ><s:property value="top.userName" /></option>
-                        </s:iterator>
-                    </select>
-                </div>
+                <s:if test="%{user.isLecturer()}">
+                    <input name="project.lecturer" type="hidden" value="<s:property value="user.userId" />" />
+                </s:if>
+                <s:else>
+                    <div class="form-group col-sm-12">
+                        <label for="sel1">(Admin Only) Select Lecturer:</label>
+                        <select class="form-control" name="project.lecturer">
+                            <s:iterator value="lecturers">
+                                <option value="<s:property value="top.userId" />"><s:property value="top.userName" /></option>
+                            </s:iterator>
+                        </select>
+                    </div>
+                </s:else>
                 <div class="form-group col-sm-12">
                     <label for="sel1">Assigned Student:</label>
                     <select class="form-control" name="project.student">
@@ -50,6 +52,18 @@
                                     <s:if test="%{project.studentId.userId == top.userId}">
                                         selected 
                                     </s:if> ><s:property value="top.userName" /></option>
+                        </s:iterator>
+                    </select>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="sel1">Project Grade:</label>
+                    <select class="form-control" name="project.projectGrade">
+                        <option value="" selected>** UNGRADED **</option>
+                        <s:iterator value="PROJECT_GRADE">
+                            <option value="<s:property value="top" />"
+                                    <s:if test="%{project.projectGrade == top}">
+                                        selected 
+                                    </s:if> ><s:property value="top" /></option>
                         </s:iterator>
                     </select>
                 </div>

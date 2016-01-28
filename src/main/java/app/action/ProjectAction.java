@@ -10,8 +10,10 @@ import app.model.Lecturer;
 import app.model.Project;
 import app.model.Specialization;
 import app.model.Student;
+import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
+import core.LoginManager;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,9 +48,14 @@ public class ProjectAction extends ActionSupport {
     public List<Specialization> specs;
     public List<Comment> comments;
     public List<Student> students;
+    public User user = LoginManager.getCurrentUser();
     public Project project;
     public int id;
     public Date today = new Date();
+    public final String[] PROJECT_GRADE = {
+        "A+", "A", "A-", "B+", "B", "B-",
+        "C+", "C", "C-", "D+", "D", "F"
+    };
 
     // file upload
     private File file;
@@ -77,9 +84,13 @@ public class ProjectAction extends ActionSupport {
             query.append(" AND p.specId = ").append(spec);
         }
 
-        String lecturer = request.getParameter("lecturer");
-        if (lecturer != null && !lecturer.isEmpty()) {
-            query.append(" AND p.lecturerId = ").append(lecturer);
+        if (user.isLecturer()) {
+            query.append(" AND p.lecturerId = ").append(user.getUserId());
+        } else {
+            String lecturer = request.getParameter("lecturer");
+            if (lecturer != null && !lecturer.isEmpty()) {
+                query.append(" AND p.lecturerId = ").append(lecturer);
+            }
         }
 
         String active = request.getParameter("active");
@@ -141,7 +152,7 @@ public class ProjectAction extends ActionSupport {
         lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
         specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
         students = new ArrayList<Student>();
- 
+
         List<Student> allStudents = DB.getInstance()
                 .createQuery("SELECT s FROM Student s")
                 .getResultList();
@@ -150,10 +161,14 @@ public class ProjectAction extends ActionSupport {
             List<Project> assignedProjects = new ArrayList<Project>();
             List<Project> pl = s.getProjectList();
             for (Project p : pl) {
-                if (p.isComplete()) assignedProjects.add(p);
+                if (p.isComplete()) {
+                    assignedProjects.add(p);
+                }
             }
-            
-            if (assignedProjects.isEmpty()) students.add(s);
+
+            if (assignedProjects.isEmpty()) {
+                students.add(s);
+            }
         }
 
         return "edit";
@@ -220,6 +235,13 @@ public class ProjectAction extends ActionSupport {
                             .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
                             .getSingleResult());
                     String studentId = request.getParameter("project.student");
+
+                    String grade = request.getParameter("project.projectGrade");
+                    if (grade != null && !grade.isEmpty()) {
+                        p.setProjectGrade(grade);
+                    } else {
+                        p.setProjectGrade(null);
+                    }
 
                     if (studentId != null) {
                         if (studentId.isEmpty()) {
