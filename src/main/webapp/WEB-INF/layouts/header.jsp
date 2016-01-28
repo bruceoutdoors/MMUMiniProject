@@ -15,7 +15,7 @@
         }
     %>
 
-    <h3><a href="${pageContext.request.contextPath}">Home</a></h3>
+    <h3><a href="${pageContext.request.contextPath}/">Home</a></h3>
     <h5><%= welcomeMessage%></h5>
 
     <% if (u != null) { %>
