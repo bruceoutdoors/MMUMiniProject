@@ -171,7 +171,7 @@ public class ProjectAction extends ActionSupport {
             List<Project> assignedProjects = new ArrayList<Project>();
             List<Project> pl = s.getProjectList();
             for (Project p : pl) {
-                if (p.isComplete() && p.getSubDate() == null) {
+                if (!p.isComplete()) {
                     assignedProjects.add(p);
                 }
             }
@@ -179,6 +179,10 @@ public class ProjectAction extends ActionSupport {
             if (assignedProjects.isEmpty()) {
                 students.add(s);
             }
+        }
+        
+        if (project.getStudentId() != null) {
+            students.add(project.getStudentId());
         }
 
         students.sort(new Comparator<Student>() {
