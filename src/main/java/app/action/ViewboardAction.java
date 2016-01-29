@@ -12,6 +12,7 @@ import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
 import core.LoginManager;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
 import org.apache.struts2.convention.annotation.Result;
@@ -33,6 +34,7 @@ public class ViewboardAction extends ActionSupport {
     public String url = "/account/login";
     public String alertMsg;
     public String alertType;
+    public Date lastSignIn;
 
     public String index() {
         StringBuilder query = new StringBuilder();
@@ -40,12 +42,16 @@ public class ViewboardAction extends ActionSupport {
         if (user == null) {
             return "redirect";
         }
+        
+        lastSignIn = LoginManager.getLastSignIn();
  
         query.append("SELECT p FROM Project p WHERE p.projectActive = true");
 
         if (user.isStudent()) {
             query.append(" AND p.specId = ").append(user.getStudent().getSpecId().getSpecId());
         }
+        
+        query.append(" ORDER BY p.startDate DESC");
 
         projectList = DB.getInstance().createQuery(query.toString()).getResultList();
 

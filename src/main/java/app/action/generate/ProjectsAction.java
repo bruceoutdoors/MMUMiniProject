@@ -63,7 +63,7 @@ public class ProjectsAction extends ActionSupport {
             p.setDueDate(duedate.toDate());
             p.setStartDate(fairy.dateProducer().randomDateBetweenTwoDates(
                     DateTime.now().minusWeeks(6),
-                    DateTime.now().plusWeeks(3)).toDate());
+                    DateTime.now().minusWeeks(1)).toDate());
 
             if (duedate.isAfterNow()) {
                 String status = PROJECT_STATUS[ThreadLocalRandom.current().nextInt(2, 5)];

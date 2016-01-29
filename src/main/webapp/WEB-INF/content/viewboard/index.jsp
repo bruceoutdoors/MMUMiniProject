@@ -19,6 +19,9 @@
                             <tr>
                                 <td>
                                     <div class="row noMargin">
+                                        <s:if test="%{lastSignIn.before(top.startDate)}">
+                                        [NEW!]
+                                        </s:if>
                                         <h3 class="col-sm-10 noMargin"><a href="${pageContext.request.contextPath}/viewboard/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h3>
                                         <h5 class="col-sm-2 noMargin text-right"><b>[<s:property value="top.status" />]</b></h5>
                                     </div>
