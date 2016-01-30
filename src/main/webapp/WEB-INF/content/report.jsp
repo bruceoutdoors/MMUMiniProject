@@ -116,15 +116,40 @@
                 <p>A total of <b><s:property value="projectList.size" /></b> projects found:</p>
                 <br/>
                 <table class="table table-striped">
+                    <thead>
+                        <h5 class="col-sm-3"><b>Title</b></h5>
+                        <h5 class="col-sm-2"><b>Specialisation</b></h5>
+                        <h5 class="col-sm-1"><b>Lecturer</b></h5>
+                        <h5 class="col-sm-1"><b>Student</b></h5>
+                        <h5 class="col-sm-1"><b>Active?</b></h5>
+                        <h5 class="col-sm-1"><b>Comment(s)</b></h5>
+                        <div class="col-sm-3">
+                            <h5 class="col-sm-6"><b>Start Date</b></h5>
+                            <h5 class="col-sm-6"><b>Status</b></h5>
+                        </div>
+                    </thead>
                     <tbody>
                         <s:iterator value="projectList">
                             <tr>
                                 <td>
                                     <div class="row">
-                                        <h4 class="col-sm-5"><a target="_blank" href="${pageContext.request.contextPath}/viewboard/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h4>
-                                        <h4 class="col-sm-2"><s:property value="top.lecturerId.userName" /></h4>
-                                        <h4 class="col-sm-2"><s:date name="top.startDate" format="dd-MM-yyyy" /></h4>
-                                        <h4 class="col-sm-3">[<s:property value="top.status" />]</h4>
+                                        <h5 class="col-sm-3"><a target="_blank" href="${pageContext.request.contextPath}/viewboard/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h5>
+                                        <h5 class="col-sm-2"><s:property value="top.specId.specName" /></h5>
+                                        <h5 class="col-sm-1"><s:property value="top.lecturerId.userName" /></h5>
+                                        <h5 class="col-sm-1">
+                                            <s:if test="%{top.studentId != null}">
+                                                <s:property value="top.studentId.userName" />
+                                            </s:if> 
+                                            <s:else>
+                                                None
+                                            </s:else>
+                                        </h5>
+                                        <h5 class="col-sm-1"><s:property value="top.projectActive" /></h5>
+                                        <h5 class="col-sm-1"><s:property value="top.commentList.size" /></h5>
+                                        <div class="col-sm-3">
+                                            <h5 class="col-sm-6"><s:date name="top.startDate" format="dd-MM-yyyy" /></h5>
+                                            <h5 class="col-sm-6">[<s:property value="top.status" />]</h5>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
