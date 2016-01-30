@@ -12,11 +12,7 @@
         <title>Edit Account</title>
         <jsp:include page="/WEB-INF/layouts/head.jsp" />
         <style>
-            #fixedbutton1 { position: fixed; bottom: 20px; right: 95px; 
-            }
-
-            #fixedbutton2 { position: fixed; bottom: 20px; right: 20px;
-            }
+            #fixedbutton1 { margin-right: 20px; }
         </style>
     </head>
     <body>
@@ -24,7 +20,6 @@
             <jsp:include page="/WEB-INF/layouts/header.jsp" />
             <h1><small>Edit Account</small></h1>
 
-            <h2><small> :USER ACCOUNT: </small></h2>
             <table class="table table-hover, table-striped">
                 <thead>
                     <tr style="text-align:center">
@@ -70,13 +65,11 @@
                         <input name="user.userTel" value="<s:property value="user.userTel" />" type="tel" class="form-control" id="number" placeholder="Enter Contact Number">
                     </div>
                 </div>
-                <br>
-                <button id="fixedbutton1" type="reset" class="btn btn-info">Clear</button>
-                <button id="fixedbutton2"  formmethod="post"  type="submit" class="btn btn-primary">Submit</button>
+                <br/>
+                <button id="fixedbutton2"  formmethod="post"  type="submit" class="btn btn-primary pull-right">Submit</button>
+                <button id="fixedbutton1" type="reset" class="btn btn-info pull-right">Clear</button>
             </form>
-            <br>
-
-
+                    
             <jsp:include page="/WEB-INF/layouts/footer.jsp" />
         </div> 
     </body>
