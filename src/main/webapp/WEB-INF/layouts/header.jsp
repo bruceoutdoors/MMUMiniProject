@@ -2,6 +2,7 @@
 <%@page import="app.model.User"%>
 <%@page import="core.LoginManager"%>
 <center>
+    <img src="banner.png" alt="page banner" style="width:50%;height:50%"></img>
     <%
         String welcomeMessage = "";
         User u = LoginManager.getCurrentUser();
