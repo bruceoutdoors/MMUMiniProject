@@ -128,6 +128,13 @@
                     CKEDITOR.replace('editor1');
                 </script>
             </form>
+            <!--            
+            <form action="${pageContext.request.contextPath}/project/<s:property value="id" />">
+                            <input name="_method" type="hidden" value="delete" />
+                            <button  onclick="return confirm('Are you sure you want to delete?')" 
+                                     formmethod="post" type="submit" class="btn btn-danger pull-right"><span class="fa fa-trash"></span>  Delete</button>
+                        </form>
+            -->
         </div>
         <jsp:include page="/WEB-INF/layouts/footer.jsp" />
     </body>

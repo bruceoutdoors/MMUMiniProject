@@ -32,7 +32,7 @@
                 <p class="well"><strong>Submission Date: </strong> <s:date name="project.subDate" format="dd-MM-yyyy hh:mma" /></p>
                 <p class="well"><strong>Lecturer: </strong> <s:property value="project.lecturerId.userName" /></p>
                 <s:if test="%{project.projectFile != null}">
-                    <p class="well"><strong>Project PDF File: </strong> <a href="<s:property value="project.projectFile"  />" target="_blank" 
+                    <p class="well"><strong>Project PDF File (right-click link and copy paste the link address to a new tab):  </strong> <a href="<s:property value="project.projectFile"  />" target="_blank" 
                                                                            title="NOTE: If you running this locally, instead of clicking this link directly you need to copy the link address and paste it in another tab. This is because most modern browsers prevent users from accessing files locally for security reasons.">
                             Download Project File
                         </a></p>
