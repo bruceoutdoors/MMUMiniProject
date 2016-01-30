@@ -2,6 +2,7 @@
 <%@page import="app.model.User"%>
 <%@page import="core.LoginManager"%>
 <center>
+    <br>
     <a href="${pageContext.request.contextPath}/" data-toggle="tooltip" title="Click to Home Page!">
         <img src="${pageContext.request.contextPath}/images/banner.png" alt="page banner" style="width:60%;height:60%" class="img-responsive"></img></a>
     <%
@@ -19,15 +20,16 @@
     <h5><%= welcomeMessage%></h5>
 
     <% if (u != null) { %>
-    <a href="${pageContext.request.contextPath}/account/edit" class="btn btn-primary"><span class="fa fa-pencil-square-o"></span> Edit Account</a> || 
+    <a href="${pageContext.request.contextPath}/account/edit" class="btn btn-primary"><span class="fa fa-pencil-square-o"></span> Edit Account</a> 
     <% if (u.isAdmin()) { %>
-    <a href="${pageContext.request.contextPath}/user" class="btn btn-info"><span class="fa fa-user"></span> Edit Users</a> || 
+    <a href="${pageContext.request.contextPath}/user" class="btn btn-info"><span class="fa fa-user"></span> Edit Users</a> 
     <% } %>
     <% if (u.isStudent()) { %>
-    <a href="${pageContext.request.contextPath}/account/project" class="btn btn-success"><span class="fa fa-database"></span> My Projects</a> || 
+    <a href="${pageContext.request.contextPath}/account/project" class="btn btn-info"><span class="fa fa-database"></span> My Projects</a> 
     <% } else { %>
-    <a href="${pageContext.request.contextPath}/project" class="btn btn-success"><span class="fa fa-database"></span> Projects</a> || 
+    <a href="${pageContext.request.contextPath}/project" class="btn btn-success"><span class="fa fa-database"></span> Projects</a> 
     <% }%>
+    <a href="#" class="btn btn-warning"><span class="fa fa-pencil-square-o"></span> Report</a> 
     <a onclick="return confirm('Are you sure you want to log out?')" href="${pageContext.request.contextPath}/account/logout" class="btn btn-danger"><span class="fa fa-sign-out"></span> Logout</a>
     <% } else { %>
     <a href="${pageContext.request.contextPath}/account/login" class="btn btn-primary"><span class="fa fa-sign-in"></span> Login</a>
