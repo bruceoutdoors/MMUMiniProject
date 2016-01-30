@@ -50,33 +50,35 @@
 
                 </p>
             </div>
-            <h3><a href="${pageContext.request.contextPath}/project"><p style="position: fixed; bottom: 20px; right: 20px;"><span class="fa fa-chevron-left"></span> Back</p></a></h3>
+            <h3><a href="${pageContext.request.contextPath}/viewboard"><p style="position: fixed; bottom: 20px; right: 20px;"><span class="fa fa-chevron-left"></span> Back</p></a></h3>
 
 
 
             <h3>Comments (<s:property value="comments.size" />)</h3>
             <h4>Add Comment (<s:property value="user.userName" />):</h4>
-            <div class="form-group" action="${pageContext.request.contextPath}/comment">
-                <textarea name="comment.commentDescription" rows="4" cols="100"></textarea>
-                <input name="project.projectId" type="hidden" value="<s:property value="project.projectId" />" />
-                <br><button formmethod="post" type="submit" class="btn btn-default" data-toggle="tooltip" title="Click to post comment!">Post comment</button>
+            <div class="form-group">
+                <form role="form" action="${pageContext.request.contextPath}/comment">
+                    <textarea name="comment.commentDescription" rows="4" cols="100"></textarea>
+                    <input name="project.projectId" type="hidden" value="<s:property value="project.projectId" />" />
+                    <br><button formmethod="post" type="submit" class="btn btn-default" data-toggle="tooltip" title="Click to post comment!">Post comment</button>
+                </form>
             </div>
-                <br>
+            <br>
             <ol>
                 <s:iterator value="comments">
                     <div class="table-responsive">
-                    <table class="table table-hover">
-                        <tr>
-                            <td rowspan="3" style="width:90px" class="warning"><img src="${pageContext.request.contextPath}/images/user.png" class="img-responsive" style="width:80px;height:80px"></td>
-                            <td class="danger"><i class="fa fa-user"></i> - <s:property value="top.userId.userName" /> (<s:property value="top.userId.roleId.roleName" />)</td>
-                        </tr>
-                        <tr class="success">
-                            <td><i class="fa fa-comment-o"></i> - <s:property value="top.commentDescription" /></td>
-                        </tr>
-                        <tr class="info">
-                            <td><i class="fa fa-calendar-times-o"></i> - <s:date name="top.dateCreated" format="dd-MM-yyyy hh:mma" /></td>
-                        </tr>
-                    </table>
+                        <table class="table table-hover">
+                            <tr>
+                                <td rowspan="3" style="width:90px" class="warning"><img src="${pageContext.request.contextPath}/images/user.png" class="img-responsive" style="width:80px;height:80px"></td>
+                                <td class="danger"><i class="fa fa-user"></i> - <s:property value="top.userId.userName" /> (<s:property value="top.userId.roleId.roleName" />)</td>
+                            </tr>
+                            <tr class="info">
+                                <td><i class="fa fa-calendar-times-o"></i> - <s:date name="top.dateCreated" format="dd-MM-yyyy hh:mma" /></td>
+                            </tr>
+                            <tr class="success">
+                                <td><i class="fa fa-comment-o"></i> - <s:property value="top.commentDescription" /></td>
+                            </tr>
+                        </table>
                     </div>
                 </s:iterator>
             </ol>

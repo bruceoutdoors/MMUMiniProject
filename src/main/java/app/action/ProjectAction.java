@@ -135,19 +135,8 @@ public class ProjectAction extends ActionSupport {
     }
 
     public String show() {
-        try {
-            project = getProject();
-        } catch (NoResultException ex) {
-            alertMsg = "Cannot find project with id: " + id;
-            alertType = "warning";
-            return index();
-        }
-
-        comments = DB.getInstance()
-                .createQuery("SELECT c FROM Comment c WHERE c.projectId = " + Integer.toString(id)
-                        + " ORDER BY c.dateCreated DESC").getResultList();
-
-        return "show";
+        
+        return edit();
     }
 
     public String edit() {
