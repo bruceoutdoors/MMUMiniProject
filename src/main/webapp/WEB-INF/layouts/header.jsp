@@ -9,15 +9,21 @@
         String welcomeMessage = "";
         User u = LoginManager.getCurrentUser();
         if (u != null) {
-            welcomeMessage = "Hey there, " + u.getUserName() + ". You role is " + u.getRoleId().getRoleName();
+            welcomeMessage = "Welcome back " +u.getRoleId().getRoleName() + " " + u.getUserName() + ".";
             if (u.isStudent()) {
-                welcomeMessage += ". Your specialization is " + u.getStudent().getSpecId().getSpecName();
+                welcomeMessage += " Your specialization is " + u.getStudent().getSpecId().getSpecName();
             }
         } else {
             welcomeMessage = "Hello stranger. Please login to access this system.";
         }
     %>
-    <h5><%= welcomeMessage%></h5>
+    <br>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;height:100%">
+            <center><p class="text-capitalize"><strong><%= welcomeMessage%></strong></p></center>
+        </div>
+        </div>
 
     <% if (u != null) { %>
     <a href="${pageContext.request.contextPath}/account/edit" class="btn btn-primary"><span class="fa fa-pencil-square-o"></span> Edit Account</a> 
@@ -29,7 +35,7 @@
     <% } else { %>
     <a href="${pageContext.request.contextPath}/project" class="btn btn-success"><span class="fa fa-database"></span> Projects</a> 
     <% }%>
-    <a href="#" class="btn btn-warning"><span class="fa fa-pencil-square-o"></span> Report</a> 
+    <a href="#" class="btn btn-warning"><span class="fa fa-file-text-o"></span> Report</a> 
     <a onclick="return confirm('Are you sure you want to log out?')" href="${pageContext.request.contextPath}/account/logout" class="btn btn-danger"><span class="fa fa-sign-out"></span> Logout</a>
     <% } else { %>
     <a href="${pageContext.request.contextPath}/account/login" class="btn btn-primary"><span class="fa fa-sign-in"></span> Login</a>

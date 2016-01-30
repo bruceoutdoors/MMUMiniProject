@@ -9,9 +9,15 @@
     <body>
         <jsp:include page="/WEB-INF/layouts/header.jsp" />
         <div class="container">
-            <h1><s:property value="project.projectTitle" /></h1>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4>Project ID: <s:property value="project.projectId" /></h4>
+                </div>
+                <div class="panel-footer">
+                    <h2><s:property value="project.projectTitle" /></h2>
+                </div>
+            </div>
             <div class="well">
-                <p class="well"><strong>ID: </strong> <s:property value="project.projectId" /></p>
                 <p class="well"><strong>Project Active: </strong> <s:property value="project.projectActive" /></p>
                 <s:if test="%{project.studentId != null}">
                     <p class="well"><strong>Assigned Student: </strong> <s:property value="project.studentId.userName" /></p>
@@ -50,23 +56,31 @@
 
             <h3>Comments (<s:property value="comments.size" />)</h3>
             <h4>Add Comment (<s:property value="user.userName" />):</h4>
-            <form role="form" action="${pageContext.request.contextPath}/comment">
+            <div class="form-group" action="${pageContext.request.contextPath}/comment">
                 <textarea name="comment.commentDescription" rows="4" cols="100"></textarea>
                 <input name="project.projectId" type="hidden" value="<s:property value="project.projectId" />" />
-                <button formmethod="post" type="submit" >Post comment</button>
-            </form>
+                <br><button formmethod="post" type="submit" class="btn btn-default" data-toggle="tooltip" title="Click to post comment!">Post comment</button>
+            </div>
+                <br>
             <ol>
                 <s:iterator value="comments">
-                    <li>
-                        <ul>
-                            <li>Date Commented: <s:date name="top.dateCreated" format="dd-MM-yyyy hh:mma" /></li>
-                            <li>Name: <s:property value="top.userId.userName" /> (<s:property value="top.userId.roleId.roleName" />)</li>
-                            <li>Content: <s:property value="top.commentDescription" /></li>
-                        </ul>
-                    </li>
-                    <br/>
+                    <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tr>
+                            <td rowspan="3" style="width:90px" class="warning"><img src="${pageContext.request.contextPath}/images/user.png" class="img-responsive" style="width:80px;height:80px"></td>
+                            <td class="danger"><i class="fa fa-user"></i> - <s:property value="top.userId.userName" /> (<s:property value="top.userId.roleId.roleName" />)</td>
+                        </tr>
+                        <tr class="success">
+                            <td><i class="fa fa-comment-o"></i> - <s:property value="top.commentDescription" /></td>
+                        </tr>
+                        <tr class="info">
+                            <td><i class="fa fa-calendar-times-o"></i> - <s:date name="top.dateCreated" format="dd-MM-yyyy hh:mma" /></td>
+                        </tr>
+                    </table>
+                    </div>
                 </s:iterator>
             </ol>
+            <br/>
         </div>
         <jsp:include page="/WEB-INF/layouts/footer.jsp" />
     </body>
