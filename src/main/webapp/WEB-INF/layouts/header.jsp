@@ -2,7 +2,8 @@
 <%@page import="app.model.User"%>
 <%@page import="core.LoginManager"%>
 <center>
-    <img src="${pageContext.request.contextPath}/images/banner.png" alt="page banner" style="width:60%;height:60%"></img>
+    <a href="${pageContext.request.contextPath}/" data-toggle="tooltip" title="Click to Home Page!">
+        <img src="${pageContext.request.contextPath}/images/banner.png" alt="page banner" style="width:60%;height:60%" class="img-responsive"></img></a>
     <%
         String welcomeMessage = "";
         User u = LoginManager.getCurrentUser();
@@ -15,8 +16,6 @@
             welcomeMessage = "Hello stranger. Please login to access this system.";
         }
     %>
-
-    <h3><a href="${pageContext.request.contextPath}/">Home</a></h3>
     <h5><%= welcomeMessage%></h5>
 
     <% if (u != null) { %>
