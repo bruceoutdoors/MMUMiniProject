@@ -10,12 +10,15 @@ import app.model.Lecturer;
 import app.model.Project;
 import app.model.Specialization;
 import app.model.Student;
+import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
+import core.LoginManager;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -46,9 +49,14 @@ public class ProjectAction extends ActionSupport {
     public List<Specialization> specs;
     public List<Comment> comments;
     public List<Student> students;
+    public User user = LoginManager.getCurrentUser();
     public Project project;
     public int id;
     public Date today = new Date();
+    public final String[] PROJECT_GRADE = {
+        "A+", "A", "A-", "B+", "B", "B-",
+        "C+", "C", "C-", "D+", "D", "F"
+    };
 
     // file upload
     private File file;
@@ -77,9 +85,13 @@ public class ProjectAction extends ActionSupport {
             query.append(" AND p.specId = ").append(spec);
         }
 
-        String lecturer = request.getParameter("lecturer");
-        if (lecturer != null && !lecturer.isEmpty()) {
-            query.append(" AND p.lecturerId = ").append(lecturer);
+        if (user.isLecturer()) {
+            query.append(" AND p.lecturerId = ").append(user.getUserId());
+        } else {
+            String lecturer = request.getParameter("lecturer");
+            if (lecturer != null && !lecturer.isEmpty()) {
+                query.append(" AND p.lecturerId = ").append(lecturer);
+            }
         }
 
         String active = request.getParameter("active");
@@ -106,6 +118,15 @@ public class ProjectAction extends ActionSupport {
                 query.append(" AND p.studentId IS NOT NULL");
             } else if (assigned.equals("no")) {
                 query.append(" AND p.studentId IS NULL");
+            }
+        }
+
+        String completed = request.getParameter("completed");
+        if (completed != null && !completed.isEmpty()) {
+            if (completed.equals("yes")) {
+                query.append(" AND p.subDate IS NOT NULL");
+            } else if (completed.equals("no")) {
+                query.append(" AND p.subDate IS NULL");
             }
         }
 
@@ -141,7 +162,7 @@ public class ProjectAction extends ActionSupport {
         lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
         specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
         students = new ArrayList<Student>();
- 
+
         List<Student> allStudents = DB.getInstance()
                 .createQuery("SELECT s FROM Student s")
                 .getResultList();
@@ -150,11 +171,26 @@ public class ProjectAction extends ActionSupport {
             List<Project> assignedProjects = new ArrayList<Project>();
             List<Project> pl = s.getProjectList();
             for (Project p : pl) {
-                if (p.isComplete()) assignedProjects.add(p);
+                if (!p.isComplete()) {
+                    assignedProjects.add(p);
+                }
             }
-            
-            if (assignedProjects.isEmpty()) students.add(s);
+
+            if (assignedProjects.isEmpty()) {
+                students.add(s);
+            }
         }
+        
+        if (project.getStudentId() != null) {
+            students.add(project.getStudentId());
+        }
+
+        students.sort(new Comparator<Student>() {
+            @Override
+            public int compare(Student a, Student b) {
+                return a.getUserName().compareTo(b.getUserName());
+            }
+        });
 
         return "edit";
     }
@@ -210,6 +246,14 @@ public class ProjectAction extends ActionSupport {
                     p.setProjectTitle(request.getParameter("project.projectTitle"));
                     p.setDueDate(new SimpleDateFormat(DATE_FORMAT)
                             .parse(request.getParameter("project.dueDate")));
+
+                    String subDate = request.getParameter("project.subDate");
+                    if (subDate != null && !subDate.isEmpty()) {
+                        p.setSubDate(new SimpleDateFormat(DATE_FORMAT).parse(subDate));
+                    } else {
+                        p.setSubDate(null);
+                    }
+
                     p.setProjectDescription(request.getParameter("project.projectDescription"));
                     p.setSpecId((Specialization) DB.getInstance()
                             .createNamedQuery("Specialization.findBySpecId")
@@ -220,6 +264,13 @@ public class ProjectAction extends ActionSupport {
                             .setParameter("userId", Integer.parseInt(request.getParameter("project.lecturer")))
                             .getSingleResult());
                     String studentId = request.getParameter("project.student");
+
+                    String grade = request.getParameter("project.projectGrade");
+                    if (grade != null && !grade.isEmpty()) {
+                        p.setProjectGrade(grade);
+                    } else {
+                        p.setProjectGrade(null);
+                    }
 
                     if (studentId != null) {
                         if (studentId.isEmpty()) {

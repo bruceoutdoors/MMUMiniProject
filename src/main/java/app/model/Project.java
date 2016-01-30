@@ -127,6 +127,15 @@ public class Project implements Serializable {
         return statusEnum.ASSIGNED;
     }
     
+    public String getShortDescription() {
+        String shortDesc = projectDescription.replaceAll("\\<.*?>","");
+        if (projectDescription.length() > 400) {
+	    return shortDesc.substring(0, 400) + "...";
+	} else {
+	    return shortDesc;
+	}
+    }
+    
     public Boolean isComplete() {
         return subDate != null;
     }

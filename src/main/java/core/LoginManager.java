@@ -16,15 +16,16 @@ import org.apache.struts2.ServletActionContext;
  * @author bruceoutdoors
  */
 public class LoginManager {
-
     public static User login(String username, String password) throws Exception {
         final User u;
+        HttpSession session = ServletActionContext.getRequest().getSession();
 
         try {
             u = (User) DB.getInstance()
                     .createNamedQuery("User.findByUserName")
                     .setParameter("userName", username)
                     .getSingleResult();
+            session.setAttribute("LAST_SIGN_IN", u.getUserlastSignIn());
         } catch (NoResultException ex) {
             return null;
         }
@@ -41,7 +42,6 @@ public class LoginManager {
             }
         });
 
-        HttpSession session = ServletActionContext.getRequest().getSession();
         session.setAttribute("CURRENT_USER", u);
 
         return u;
@@ -50,6 +50,11 @@ public class LoginManager {
     public static void logout() {
         HttpSession session = ServletActionContext.getRequest().getSession();
         session.removeAttribute("CURRENT_USER");
+    }
+    
+    public static Date getLastSignIn() {
+        HttpSession session = ServletActionContext.getRequest().getSession();
+        return (Date) session.getAttribute("LAST_SIGN_IN");
     }
 
     public static User getCurrentUser() {

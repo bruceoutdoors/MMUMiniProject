@@ -57,7 +57,7 @@ public class User implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 5, max = 45)
     @Column(name = "user_password")
     private String userPassword;
 
@@ -179,7 +179,7 @@ public class User implements Serializable {
         return roleId;
     }
 
-    protected void setRoleId(Role roleId) {
+    public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
 
