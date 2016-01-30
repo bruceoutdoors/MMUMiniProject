@@ -13,7 +13,7 @@
         <div class="container">
 
             <form class="form-signin" method="post">
-                <img src="${pageContext.request.contextPath}/images/splash.jpg" class="img-responsive img-rounded" alt="Cinque Terre">
+                <img src="${pageContext.request.contextPath}/images/splash.png" class="img-responsive img-rounded" alt="Cinque Terre">
                 <h2 class="form-signin-heading">Please sign in</h2>
                 <font color="red" <s:property value="incorrectCredentials" /> >Incorrect username or password</font>
                 <label for="inputEmail" class="sr-only">Email address</label>
