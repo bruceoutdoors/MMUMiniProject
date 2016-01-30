@@ -121,7 +121,7 @@
                             <tr>
                                 <td>
                                     <div class="row">
-                                        <h4 class="col-sm-5"><a href="${pageContext.request.contextPath}/project/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h4>
+                                        <h4 class="col-sm-5"><a target="_blank" href="${pageContext.request.contextPath}/viewboard/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h4>
                                         <h4 class="col-sm-2"><s:property value="top.lecturerId.userName" /></h4>
                                         <h4 class="col-sm-2"><s:date name="top.startDate" format="dd-MM-yyyy" /></h4>
                                         <h4 class="col-sm-3">[<s:property value="top.status" />]</h4>
