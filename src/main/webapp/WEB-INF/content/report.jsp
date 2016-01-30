@@ -12,16 +12,10 @@
             <h3>Project Report</h3>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a data-toggle="collapse" href="#Filters"><h4><b>Filters</b></h4></a>
+                    <a data-toggle="collapse" href="#Filters"><h4><b>View Reports By</b></h4></a>
                     <div id="Filters" class="panel-collapse collapse">
                         <br/>
                         <form role="form">
-                            <div class="form-group col-sm-6">
-                                <label class="control-label">Search by Project Title</label>
-                                <div>
-                                    <input id="search-title" name="title" class="form-control" type="text" value="<s:property value="#parameters.title" />">
-                                </div>
-                            </div>
                             <div class="form-group col-sm-12">
                                 <label for="sel1">Search by Specialization:</label>
                                 <select class="form-control" name="spec">
@@ -127,7 +121,7 @@
                             <tr>
                                 <td>
                                     <div class="row">
-                                        <h4 class="col-sm-5"><a href="${pageContext.request.contextPath}/project/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h4>
+                                        <h4 class="col-sm-5"><a target="_blank" href="${pageContext.request.contextPath}/viewboard/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h4>
                                         <h4 class="col-sm-2"><s:property value="top.lecturerId.userName" /></h4>
                                         <h4 class="col-sm-2"><s:date name="top.startDate" format="dd-MM-yyyy" /></h4>
                                         <h4 class="col-sm-3">[<s:property value="top.status" />]</h4>
