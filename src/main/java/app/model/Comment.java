@@ -127,6 +127,10 @@ public class Comment implements Serializable {
 
     public void setProjectId(Project projectId) {
         this.projectId = projectId;
+        
+        if (projectId != null) {
+            projectId.getCommentList().add(this);
+        }
     }
 
     public Date getDateCreated() {

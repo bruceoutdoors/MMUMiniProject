@@ -66,7 +66,7 @@ public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "project_id", unique=true)
+    @Column(name = "project_id", unique = true)
     private Integer projectId;
     @Size(max = 300)
     @Column(name = "project_title")
@@ -98,44 +98,44 @@ public class Project implements Serializable {
         INACTIVE,
         UNASSIGNED,
         ASSIGNED,
-        SUBMITTED, 
+        SUBMITTED,
         EVALUATED,
         OVERDUED
     }
-    
+
     public statusEnum getStatus() {
         if (projectActive == false) {
             return statusEnum.INACTIVE;
         }
-        
+
         if (studentId == null) {
             return statusEnum.UNASSIGNED;
         }
-        
+
         if (subDate != null) {
             if (projectGrade != null) {
                 return statusEnum.EVALUATED;
             }
-            
+
             return statusEnum.SUBMITTED;
         }
-        
+
         if (dueDate.before(new Date())) {
             return statusEnum.OVERDUED;
         }
-        
+
         return statusEnum.ASSIGNED;
     }
-    
+
     public String getShortDescription() {
-        String shortDesc = projectDescription.replaceAll("\\<.*?>","");
+        String shortDesc = projectDescription.replaceAll("\\<.*?>", "");
         if (projectDescription.length() > 400) {
-	    return shortDesc.substring(0, 400) + "...";
-	} else {
-	    return shortDesc;
-	}
+            return shortDesc.substring(0, 400) + "...";
+        } else {
+            return shortDesc;
+        }
     }
-    
+
     public Boolean isComplete() {
         return subDate != null;
     }
@@ -225,6 +225,10 @@ public class Project implements Serializable {
 
     public void setStudentId(Student studentId) {
         this.studentId = studentId;
+
+        if (studentId != null) {
+            studentId.getProjectList().add(this);
+        }
     }
 
     @Override
