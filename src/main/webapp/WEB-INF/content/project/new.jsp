@@ -10,7 +10,7 @@
     <body>
         <jsp:include page="/WEB-INF/layouts/header.jsp" />
         <div class="container">
-            <h2>Edit Project</h2>
+            <h2>New Project</h2>
             <form role="form" action="${pageContext.request.contextPath}/project"  enctype="multipart/form-data"/>
             <div class="form-group col-sm-12">
                 <label class="control-label">Project Title</label>

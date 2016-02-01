@@ -39,9 +39,9 @@
                         <select class="form-control" name="project.lecturer">
                             <s:iterator value="lecturers">
                                 <option value="<s:property value="top.userId" />"
-                                            <s:if test="%{project.lecturerId.userId == top.userId}">
-                                                selected
-                                            </s:if> /><s:property value="top.userName" /></option>
+                                        <s:if test="%{project.lecturerId.userId == top.userId}">
+                                            selected
+                                        </s:if> /><s:property value="top.userName" /></option>
                             </s:iterator>
                         </select>
                     </div>
@@ -119,14 +119,22 @@
                                checked
                            </s:if> >
                 </div>
-                <input name="_method" type="hidden" value="put" />
-                <button onclick="window.history.back();" class="btn btn-info">Cancel</button>
-                <button formmethod="post" type="submit" class="btn btn-primary">Submit</button>
-
+                <div class="form-group col-sm-12">
+                    <input name="_method" type="hidden" value="put" />
+                    <a href="${pageContext.request.contextPath}/project" class="btn btn-info">Back</a>
+                    <button formmethod="post" type="submit" class="btn btn-primary">Update</button>
+                </div>
                 <script>
                     CKEDITOR.replace('editor1');
                 </script>
             </form>
+            <!--            
+            <form action="${pageContext.request.contextPath}/project/<s:property value="id" />">
+                            <input name="_method" type="hidden" value="delete" />
+                            <button  onclick="return confirm('Are you sure you want to delete?')" 
+                                     formmethod="post" type="submit" class="btn btn-danger pull-right"><span class="fa fa-trash"></span>  Delete</button>
+                        </form>
+            -->
         </div>
         <jsp:include page="/WEB-INF/layouts/footer.jsp" />
     </body>
