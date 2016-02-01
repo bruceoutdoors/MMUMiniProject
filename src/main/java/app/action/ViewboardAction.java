@@ -7,7 +7,10 @@ package app.action;
 
 import app.action.*;
 import app.model.Comment;
+import app.model.Lecturer;
 import app.model.Project;
+import app.model.Specialization;
+import app.model.Student;
 import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
@@ -31,13 +34,15 @@ public class ViewboardAction extends ActionSupport {
     public List<Project> projectList;
     public List<Comment> comments;
     public User user = LoginManager.getCurrentUser();
-    ;
+    public List<Student> students;
     public int id;
     public Project project;
     public String url = "/account/login";
     public String alertMsg;
     public String alertType;
     public Date lastSignIn;
+    public List<Lecturer> lecturers;
+    public List<Specialization> specs;
 
     public String index() {
         StringBuilder query = new StringBuilder();
@@ -46,6 +51,9 @@ public class ViewboardAction extends ActionSupport {
             return "redirect";
         }
 
+        students = DB.getInstance().createNamedQuery("Student.findAll").getResultList();
+        lecturers = DB.getInstance().createNamedQuery("Lecturer.findAll").getResultList();
+        specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
         lastSignIn = LoginManager.getLastSignIn();
         HttpServletRequest request = ServletActionContext.getRequest();
         query.append("SELECT p FROM Project p WHERE p.projectActive = true");
@@ -64,13 +72,14 @@ public class ViewboardAction extends ActionSupport {
             query.append(" AND p.specId = ").append(spec);
         }
 
-        if (user.isLecturer()) {
-            query.append(" AND p.lecturerId = ").append(user.getUserId());
-        } else {
-            String lecturer = request.getParameter("lecturer");
-            if (lecturer != null && !lecturer.isEmpty()) {
-                query.append(" AND p.lecturerId = ").append(lecturer);
-            }
+        String lecturer = request.getParameter("lecturer");
+        if (lecturer != null && !lecturer.isEmpty()) {
+            query.append(" AND p.lecturerId = ").append(lecturer);
+        }
+        
+        String student = request.getParameter("student");
+        if (student != null && !student.isEmpty()) {
+            query.append(" AND p.studentId = ").append(student);
         }
 
         String active = request.getParameter("active");

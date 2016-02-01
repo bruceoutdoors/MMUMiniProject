@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @DiscriminatorValue("2")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s"),
+    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s ORDER BY s.userName"),
     @NamedQuery(name = "Student.findByUserId", query = "SELECT s FROM Student s WHERE s.userId = :userId")})
 public class Student extends User {
 

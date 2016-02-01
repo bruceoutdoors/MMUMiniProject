@@ -12,7 +12,7 @@
             <h1>View Board</h1>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a data-toggle="collapse" href="#Filters"><h4><b>View Reports By</b></h4></a>
+                    <a data-toggle="collapse" href="#Filters"><h4><b>Filter Projects By</b></h4></a>
                     <div id="Filters" class="panel-collapse collapse">
                         <br/>
                         <form role="form">
@@ -22,23 +22,36 @@
                                     <input id="search-title" name="title" class="form-control" type="text" value="<s:property value="#parameters.title" />">
                                 </div>
                             </div>
-                            <s:if test="%{!user.isLecturer()}">
-                                <div class="form-group col-sm-12">
-                                    <label for="sel1">Search by Lecturer:</label>
-                                    <select class="form-control" name="lecturer">
-                                        <option value="" selected> -- none selected -- </option>
-                                        <s:iterator value="lecturers">
-                                            <option 
-                                                <s:if test="%{#parameters.lecturer[0] == top.userId}">
-                                                    selected 
-                                                </s:if>
-                                                value="<s:property value="top.userId" />">
-                                                <s:property value="top.userName" />
-                                            </option>
-                                        </s:iterator>
-                                    </select>
-                                </div>
-                            </s:if>
+                            <div class="form-group col-sm-12">
+                                <label for="sel1">Search by Lecturer:</label>
+                                <select class="form-control" name="lecturer">
+                                    <option value="" selected> -- none selected -- </option>
+                                    <s:iterator value="lecturers">
+                                        <option 
+                                            <s:if test="%{#parameters.lecturer[0] == top.userId}">
+                                                selected 
+                                            </s:if>
+                                            value="<s:property value="top.userId" />">
+                                            <s:property value="top.userName" />
+                                        </option>
+                                    </s:iterator>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="sel1">Search by Student:</label>
+                                <select class="form-control" name="student">
+                                    <option value="" selected> -- none selected -- </option>
+                                    <s:iterator value="students">
+                                        <option 
+                                            <s:if test="%{#parameters.student[0] == top.userId}">
+                                                selected 
+                                            </s:if>
+                                            value="<s:property value="top.userId" />">
+                                            <s:property value="top.userName" />
+                                        </option>
+                                    </s:iterator>
+                                </select>
+                            </div>
                             <div class="form-group col-sm-12">
                                 <label for="sel1">Active projects:  </label>
                                 <select class="form-control" name="active">
