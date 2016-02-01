@@ -24,7 +24,8 @@
             <center><p class="text-capitalize"><strong><%= welcomeMessage%></strong></p></center>
         </div>
         </div>
-
+    <% if (u != null) { %>
+    <a href="${pageContext.request.contextPath}/" class="btn btn-default"><span class="fa fa-home"></span> View Board</a> 
     <% if (u != null) { %>
     <a href="${pageContext.request.contextPath}/account/edit" class="btn btn-primary"><span class="fa fa-pencil-square-o"></span> Edit Account</a> 
     <% if (u.isAdmin()) { %>
@@ -39,7 +40,7 @@
     <a onclick="return confirm('Are you sure you want to log out?')" href="${pageContext.request.contextPath}/account/logout" class="btn btn-danger"><span class="fa fa-sign-out"></span> Logout</a>
     <% } else { %>
     <a href="${pageContext.request.contextPath}/account/login" class="btn btn-primary"><span class="fa fa-sign-in"></span> Login</a>
-    || <a href="${pageContext.request.contextPath}/user/new">create user</a>
+    <a href="${pageContext.request.contextPath}/user/new" class="btn btn-warning">create user</a>
     <% }%>
 
     <%-- Show alerts (fill properties "alertMsg" and optional "alertType"), if exists --%>
