@@ -3,7 +3,6 @@ package core;
 import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**

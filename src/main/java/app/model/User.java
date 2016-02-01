@@ -5,13 +5,9 @@
  */
 package app.model;
 
-import static com.opensymphony.xwork2.Action.INPUT;
-import core.DB;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,7 +21,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.NoResultException;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;

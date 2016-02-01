@@ -8,7 +8,6 @@ package app.action;
 import app.model.Lecturer;
 import app.model.Project;
 import app.model.Specialization;
-import app.model.Student;
 import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;

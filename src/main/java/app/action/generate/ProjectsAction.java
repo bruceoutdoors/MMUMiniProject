@@ -7,8 +7,8 @@ package app.action.generate;
 
 import app.model.Lecturer;
 import app.model.Project;
-import app.model.Student;
 import app.model.Specialization;
+import app.model.Student;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;

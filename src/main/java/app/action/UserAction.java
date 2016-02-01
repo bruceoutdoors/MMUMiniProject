@@ -5,29 +5,15 @@
  */
 package app.action;
 
-import app.model.Comment;
-import app.model.Lecturer;
-import app.model.Project;
 import app.model.Role;
-import app.model.Specialization;
-import app.model.Student;
 import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
-import core.LoginManager;
-import java.io.File;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import static org.apache.struts2.ServletActionContext.getServletContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;

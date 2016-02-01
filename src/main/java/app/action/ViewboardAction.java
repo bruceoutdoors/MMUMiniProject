@@ -5,7 +5,6 @@
  */
 package app.action;
 
-import app.action.*;
 import app.model.Comment;
 import app.model.Lecturer;
 import app.model.Project;

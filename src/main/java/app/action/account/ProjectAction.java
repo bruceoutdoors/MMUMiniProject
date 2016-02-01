@@ -11,11 +11,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
 import core.LoginManager;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.ResultPath;
-import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
