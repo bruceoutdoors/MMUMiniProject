@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Edit Account</title>
+        <title>New Account</title>
         <jsp:include page="/WEB-INF/layouts/head.jsp" />
         <style>
             #fixedbutton1 { position: fixed; bottom: 20px; right: 95px; 
@@ -22,7 +22,7 @@
     <body>
         <div class="container">
             <jsp:include page="/WEB-INF/layouts/header.jsp" />
-            <h1><small>Edit Account</small></h1>
+            <h1><small>New Account</small></h1>
             <form class="form-horizontal" action="${pageContext.request.contextPath}/user" role="form"> 
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="number">Id:</label>

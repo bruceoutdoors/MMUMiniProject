@@ -36,7 +36,8 @@
                             </div>
                             <div class="form-group col-sm-12">
                                 <br/>
-                                <button type="submit" class="btn btn-primary col-sm-3">Submit</button>
+                                <button type="submit" class="btn btn-primary col-sm-3">Submit</button> &nbsp;
+                                <a href="${pageContext.request.contextPath}/project" class="btn btn-warning">Clear Filter</a> 
                             </div>
                         </form>
                     </div>

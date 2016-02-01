@@ -26,7 +26,7 @@
         </div>
 
     <% if (u != null) { %>
-    <a href="${pageContext.request.contextPath}/account/edit" class="btn btn-primary"><span class="fa fa-pencil-square-o"></span> Edit Account</a> 
+    <a href="${pageContext.request.contextPath}/account/edit" class="btn btn-primary"><span class="fa fa-pencil-square-o"></span> Edit Profile</a> 
     <% if (u.isAdmin()) { %>
     <a href="${pageContext.request.contextPath}/user" class="btn btn-info"><span class="fa fa-user"></span> Edit Users</a> 
     <a href="${pageContext.request.contextPath}/report" class="btn btn-warning"><span class="fa fa-file-text-o"></span> Report</a> 

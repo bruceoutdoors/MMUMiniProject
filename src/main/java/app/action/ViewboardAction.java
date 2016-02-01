@@ -15,6 +15,8 @@ import core.LoginManager;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 
@@ -28,7 +30,8 @@ public class ViewboardAction extends ActionSupport {
 
     public List<Project> projectList;
     public List<Comment> comments;
-    public User user = LoginManager.getCurrentUser();;
+    public User user = LoginManager.getCurrentUser();
+    ;
     public int id;
     public Project project;
     public String url = "/account/login";
@@ -38,19 +41,74 @@ public class ViewboardAction extends ActionSupport {
 
     public String index() {
         StringBuilder query = new StringBuilder();
-        
+
         if (user == null) {
             return "redirect";
         }
-        
+
         lastSignIn = LoginManager.getLastSignIn();
- 
+        HttpServletRequest request = ServletActionContext.getRequest();
         query.append("SELECT p FROM Project p WHERE p.projectActive = true");
 
         if (user.isStudent()) {
             query.append(" AND p.specId = ").append(user.getStudent().getSpecId().getSpecId());
         }
-        
+
+        String title = request.getParameter("title");
+        if (title != null && !title.isEmpty()) {
+            query.append(" AND p.projectTitle LIKE '%").append(title).append("%'");
+        }
+
+        String spec = request.getParameter("spec");
+        if (spec != null && !spec.isEmpty()) {
+            query.append(" AND p.specId = ").append(spec);
+        }
+
+        if (user.isLecturer()) {
+            query.append(" AND p.lecturerId = ").append(user.getUserId());
+        } else {
+            String lecturer = request.getParameter("lecturer");
+            if (lecturer != null && !lecturer.isEmpty()) {
+                query.append(" AND p.lecturerId = ").append(lecturer);
+            }
+        }
+
+        String active = request.getParameter("active");
+        if (active != null && !active.isEmpty()) {
+            if (active.equals("yes")) {
+                query.append(" AND p.projectActive = true");
+            } else if (active.equals("no")) {
+                query.append(" AND p.projectActive = false");
+            }
+        }
+
+        String cmnts = request.getParameter("cmnts");
+        if (cmnts != null && !cmnts.isEmpty()) {
+            if (cmnts.equals("yes")) {
+                query.append(" AND p.commentList.size > 0");
+            } else if (cmnts.equals("no")) {
+                query.append(" AND p.commentList.size = 0");
+            }
+        }
+
+        String assigned = request.getParameter("assigned");
+        if (assigned != null && !assigned.isEmpty()) {
+            if (assigned.equals("yes")) {
+                query.append(" AND p.studentId IS NOT NULL");
+            } else if (assigned.equals("no")) {
+                query.append(" AND p.studentId IS NULL");
+            }
+        }
+
+        String completed = request.getParameter("completed");
+        if (completed != null && !completed.isEmpty()) {
+            if (completed.equals("yes")) {
+                query.append(" AND p.subDate IS NOT NULL");
+            } else if (completed.equals("no")) {
+                query.append(" AND p.subDate IS NULL");
+            }
+        }
+
         query.append(" ORDER BY p.startDate DESC");
 
         projectList = DB.getInstance().createQuery(query.toString()).getResultList();

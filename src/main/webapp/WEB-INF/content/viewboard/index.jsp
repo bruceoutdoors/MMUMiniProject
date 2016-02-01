@@ -10,6 +10,99 @@
         <jsp:include page="/WEB-INF/layouts/header.jsp" />
         <div class="container">
             <h1>View Board</h1>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a data-toggle="collapse" href="#Filters"><h4><b>View Reports By</b></h4></a>
+                    <div id="Filters" class="panel-collapse collapse">
+                        <br/>
+                        <form role="form">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label">Search by Project Title</label>
+                                <div>
+                                    <input id="search-title" name="title" class="form-control" type="text" value="<s:property value="#parameters.title" />">
+                                </div>
+                            </div>
+                            <s:if test="%{!user.isLecturer()}">
+                                <div class="form-group col-sm-12">
+                                    <label for="sel1">Search by Lecturer:</label>
+                                    <select class="form-control" name="lecturer">
+                                        <option value="" selected> -- none selected -- </option>
+                                        <s:iterator value="lecturers">
+                                            <option 
+                                                <s:if test="%{#parameters.lecturer[0] == top.userId}">
+                                                    selected 
+                                                </s:if>
+                                                value="<s:property value="top.userId" />">
+                                                <s:property value="top.userName" />
+                                            </option>
+                                        </s:iterator>
+                                    </select>
+                                </div>
+                            </s:if>
+                            <div class="form-group col-sm-12">
+                                <label for="sel1">Active projects:  </label>
+                                <select class="form-control" name="active">
+                                    <option value="" selected>Both Active and Inactive Projects </option>
+                                    <option value="yes"
+                                            <s:if test="%{#parameters.active[0] == 'yes'}">
+                                                selected 
+                                            </s:if> >Active Projects Only</option> 
+                                    <option value="no"<s:if test="%{#parameters.active[0] == 'no'}">
+                                            selected 
+                                        </s:if> >Inactive Projects Only</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="sel1">Project Has Comments?  </label>
+                                <select class="form-control" name="cmnts">
+                                    <option value="" selected>Not important</option>
+                                    <option value="yes"
+                                            <s:if test="%{#parameters.cmnts[0] == 'yes'}">
+                                                selected 
+                                            </s:if> >Project with comments</option> 
+                                    <option value="no"<s:if test="%{#parameters.cmnts[0] == 'no'}">
+                                            selected 
+                                        </s:if> >Project with no comments</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="sel1">Project Assigned to student?  </label>
+                                <select class="form-control" name="assigned">
+                                    <option value="" selected>Not important</option>
+                                    <option value="yes"
+                                            <s:if test="%{#parameters.assigned[0] == 'yes'}">
+                                                selected 
+                                            </s:if> >Assigned</option> 
+                                    <option value="no"<s:if test="%{#parameters.assigned[0] == 'no'}">
+                                            selected 
+                                        </s:if> >Unassigned</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="sel1">Project Completed?  </label>
+                                <select class="form-control" name="completed">
+                                    <option value="" selected>Not important</option>
+                                    <option value="yes"
+                                            <s:if test="%{#parameters.completed[0] == 'yes'}">
+                                                selected 
+                                            </s:if> >Completed</option> 
+                                    <option value="no"<s:if test="%{#parameters.completed[0] == 'no'}">
+                                            selected 
+                                        </s:if> >Not completed</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <br/>
+                                <button type="submit" class="btn btn-primary col-sm-3">Submit</button> &nbsp;
+                                <a href="${pageContext.request.contextPath}/viewboard" class="btn btn-warning">Clear Filter</a> 
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div class="container col-sm-12">
                 <p>A total of <b><s:property value="projectList.size" /></b> active <s:property value="user.getStudent().getSpecId().getSpecName()" /> projects found:</p>
                 <br/>
@@ -20,7 +113,7 @@
                                 <td>
                                     <div class="row noMargin">
                                         <s:if test="%{lastSignIn.before(top.startDate)}">
-                                        [NEW!]
+                                            [NEW!]
                                         </s:if>
                                         <h3 class="col-sm-10 noMargin"><a href="${pageContext.request.contextPath}/viewboard/<s:property value="top.projectId" />"><s:property value="top.projectTitle" /></a></h3>
                                         <h5 class="col-sm-2 noMargin text-right"><b>[<s:property value="top.status" />]</b></h5>
