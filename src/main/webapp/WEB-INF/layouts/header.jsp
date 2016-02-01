@@ -26,7 +26,6 @@
         </div>
     <% if (u != null) { %>
     <a href="${pageContext.request.contextPath}/" class="btn btn-default"><span class="fa fa-home"></span> View Board</a> 
-    <% if (u != null) { %>
     <a href="${pageContext.request.contextPath}/account/edit" class="btn btn-primary"><span class="fa fa-pencil-square-o"></span> Edit Profile</a> 
     <% if (u.isAdmin()) { %>
     <a href="${pageContext.request.contextPath}/user" class="btn btn-info"><span class="fa fa-user"></span> Edit Users</a> 
