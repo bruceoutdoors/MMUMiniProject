@@ -226,6 +226,7 @@ public class Project implements Serializable {
         this.studentId = studentId;
 
         if (studentId != null) {
+            if (studentId.getProjectList() == null) return;
             studentId.getProjectList().add(this);
         }
     }

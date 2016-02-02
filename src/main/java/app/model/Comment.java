@@ -129,6 +129,7 @@ public class Comment implements Serializable {
         this.projectId = projectId;
         
         if (projectId != null) {
+            if (projectId.getCommentList() == null) return;
             projectId.getCommentList().add(this);
         }
     }

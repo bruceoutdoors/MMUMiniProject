@@ -157,6 +157,8 @@ public class ProjectAction extends ActionSupport {
         for (Student s : allStudents) {
             List<Project> assignedProjects = new ArrayList<Project>();
             List<Project> pl = s.getProjectList();
+            
+            if (pl == null) continue;
             for (Project p : pl) {
                 if (!p.isComplete()) {
                     assignedProjects.add(p);
