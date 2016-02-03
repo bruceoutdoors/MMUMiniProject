@@ -14,7 +14,7 @@
         <div class="container">
             <h3>
                 <s:if test="%{user.isLecturer()}">
-                    Mange Projects (<s:property value="user.userName" />)
+                    Manage Projects (<s:property value="user.userName" />)
                 </s:if>
                 <s:else>
                     [Admin] Manage Projects 
