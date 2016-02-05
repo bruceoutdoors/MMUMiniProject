@@ -151,7 +151,7 @@ public class ProjectAction extends ActionSupport {
         students = new ArrayList<Student>();
 
         List<Student> allStudents = DB.getInstance()
-                .createQuery("SELECT s FROM Student s")
+                .createQuery("SELECT s FROM Student s WHERE s.specId = " + project.getSpecId().getSpecId().toString())
                 .getResultList();
 
         for (Student s : allStudents) {
