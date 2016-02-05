@@ -30,11 +30,46 @@ public class EditAction extends ActionSupport {
 
     public String create() throws Exception {
         user = LoginManager.getCurrentUser();
+        final HttpServletRequest request = ServletActionContext.getRequest();
+
+        String oldpass = request.getParameter("oldpass");
+        final String newpass = request.getParameter("newpass");
+        String conpass = request.getParameter("conpass");
+
+        if (oldpass != null && !oldpass.isEmpty()) {
+            if (!oldpass.equals(user.getUserPassword())) {
+                alertMsg = "Old password is incorrect!";
+                alertType = "warning";
+                return "edit";
+            }
+
+            if (newpass != null && !newpass.isEmpty() 
+                    && conpass != null && !conpass.isEmpty()) {
+                if (!newpass.equals(conpass)) {
+                    alertMsg = "new password does not match with confirmed password!";
+                    alertType = "warning";
+                    return "edit";
+                }
+                try {
+                    DB.getInstance().execTransaction(new DB.Transaction() {
+                        @Override
+                        public void execute() throws Exception {
+                            user.setUserPassword(newpass);
+                        }
+                    });
+                } catch (Exception ex) {
+                    user.setUserPassword(oldpass);
+                    alertMsg = "Cannot update password becuase " + ex.getMessage();
+                    alertType = "warning";
+                    return "edit";
+                }
+            }
+        }
+
         try {
             DB.getInstance().execTransaction(new DB.Transaction() {
                 @Override
                 public void execute() throws Exception {
-                    HttpServletRequest request = ServletActionContext.getRequest();
                     user.setUserEmail(request.getParameter("user.userEmail"));
                     user.setUserTel(request.getParameter("user.userTel"));
                 }
@@ -44,7 +79,7 @@ public class EditAction extends ActionSupport {
             alertType = "warning";
             return "edit";
         }
-        
+
         alertMsg = "Successfully update account credentials!";
         alertType = "success";
         return "edit";
