@@ -5,7 +5,11 @@
  */
 package app.action;
 
+import app.model.Admin;
+import app.model.Lecturer;
 import app.model.Role;
+import app.model.Specialization;
+import app.model.Student;
 import app.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 import core.DB;
@@ -31,6 +35,7 @@ public class UserAction extends ActionSupport {
     public User user;
     public List<User> users;
     public List<Role> roles;
+    public List<Specialization> specs;
     public String alertMsg;
     public String alertType; // success, info, warning, danger
     public int id;
@@ -57,15 +62,36 @@ public class UserAction extends ActionSupport {
 
     public String editNew() {
         roles = DB.getInstance().createNamedQuery("Role.findAll").getResultList();
+        specs = DB.getInstance().createNamedQuery("Specialization.findAll").getResultList();
 
         return "new";
     }
 
     public String create() throws ParseException, Exception {
+        HttpServletRequest request = ServletActionContext.getRequest();
         User u = new User();
 
-        HttpServletRequest request = ServletActionContext.getRequest();
-        
+        int roleId = Integer.parseInt(request.getParameter("user.roleId"));
+        switch (roleId) {
+            case 0: {
+                Admin a = new Admin();
+                u = a;
+                break;
+            }
+            case 1: {
+                Lecturer l = new Lecturer();
+                u = l;
+                break;
+            }
+            case 2: {
+                Student s = new Student();
+                u = s;
+                break;
+            }
+            default:
+                break;
+        }
+
         String password = request.getParameter("user.userPassword");
 
         if (password != null && !password.isEmpty()) {
@@ -82,17 +108,38 @@ public class UserAction extends ActionSupport {
             u.setUserName(request.getParameter("user.userName"));
             u.setUserEmail(request.getParameter("user.userEmail"));
             u.setUserTel(request.getParameter("user.userTel"));
-            u.setRoleId((Role) DB.getInstance()
-                    .createNamedQuery("Role.findByRoleId")
-                    .setParameter("roleId", Integer.parseInt(request.getParameter("user.roleId")))
-                    .getSingleResult());
+//            u.setRoleId((Role) DB.getInstance()
+//                    .createNamedQuery("Role.findByRoleId")
+//                    .setParameter("roleId", Integer.parseInt(request.getParameter("user.roleId")))
+//                    .getSingleResult());
             u.setUserActive(request.getParameter("status").equals("on"));
             u.setUserPassword(password);
-            DB.getInstance().persist(u);
+            switch (roleId) {
+                case 0: {
+                    DB.getInstance().persist((Admin) u);
+                    break;
+                }
+                case 1: {
+                    DB.getInstance().persist((Lecturer) u);
+                    break;
+                }
+                case 2: {
+                    Student s = (Student) u;
+                    s.setSpecId((Specialization) DB.getInstance()
+                        .createNamedQuery("Specialization.findBySpecId")
+                        .setParameter("specId", Integer.parseInt(request.getParameter("spec")))
+                        .getSingleResult());
+                    DB.getInstance().persist(s);
+                    break;
+                }
+                default:
+                    break;
+            }
+
         } catch (Exception ex) {
             alertMsg = "Unable to create user " + u.getUserName() + " because " + ex.getMessage();
             alertType = "warning";
-            
+
             return editNew();
         }
 

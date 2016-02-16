@@ -73,6 +73,16 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="sel1">Specialization (student):</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="spec">
+                            <s:iterator value="specs">
+                                <option value="<s:property value="top.specId" />"><s:property value="top.specName" /></option>
+                            </s:iterator>
+                        </select>
+                    </div>
+                </div>
                 <br>
 
                 <!-- Account status only for Admin -->
